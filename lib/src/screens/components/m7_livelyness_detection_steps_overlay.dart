@@ -1,13 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
 
 class M7LivelynessDetectionStepOverlay extends StatefulWidget {
   final List<M7LivelynessStepItem> steps;
   final VoidCallback onCompleted;
   const M7LivelynessDetectionStepOverlay({
-    Key? key,
+    super.key,
     required this.steps,
     required this.onCompleted,
-  }) : super(key: key);
+  });
 
   @override
   State<M7LivelynessDetectionStepOverlay> createState() =>
@@ -67,7 +68,7 @@ class M7LivelynessDetectionStepOverlayState
     if (_isLoading) {
       return;
     }
-    if ((_currentIndex + 1) <= (widget.steps.length - 1)) {
+    if ((_currentIndex + 1) < widget.steps.length) {
       //Move to next step
       _showLoader();
       await Future.delayed(
@@ -113,7 +114,7 @@ class M7LivelynessDetectionStepOverlayState
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: 10,
+          height: 5,
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -123,12 +124,12 @@ class M7LivelynessDetectionStepOverlayState
               Expanded(
                 flex: _currentIndex + 1,
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                     ),
-                    color: Colors.green.shade800,
+                    color: Color(0xFF822ad2),
                   ),
                 ),
               ),
@@ -151,31 +152,20 @@ class M7LivelynessDetectionStepOverlayState
               itemCount: widget.steps.length,
               itemBuilder: (context, index) {
                 return _buildAnimatedWidget(
-                  Padding(
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.symmetric(horizontal: 40),
                     padding: const EdgeInsets.all(10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 5,
-                            spreadRadius: 2.5,
-                            color: Colors.black12,
-                          ),
-                        ],
-                      ),
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        widget.steps[index].title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: AutoSizeText(
+                      widget.steps[index].title,
+                      maxLines: 3,
+                      textAlign: TextAlign.center,
+                      maxFontSize: 24,
+                      minFontSize: 18,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat',
                       ),
                     ),
                   ),

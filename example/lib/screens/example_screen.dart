@@ -14,9 +14,9 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
   //? =========================================================
   String? _capturedImagePath;
   final bool _isLoading = false;
-  bool _startWithInfo = true;
+  bool _startWithInfo = false;
   bool _allowAfterTimeOut = false;
-  final List<M7LivelynessStepItem> _veificationSteps = [];
+  List<M7LivelynessStepItem> _veificationSteps = [];
   int _timeOutDuration = 30;
 
   //* MARK: - Life Cycle Methods
@@ -42,17 +42,32 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       [
         M7LivelynessStepItem(
           step: M7LivelynessStep.blink,
-          title: "Blink",
+          title: lang.blink,
           isCompleted: false,
-          detectionColor: Colors.amber,
+          detectionColor: Colors.white70,
         ),
         M7LivelynessStepItem(
-          step: M7LivelynessStep.smile,
-          title: "Smile",
+          step: M7LivelynessStep.turnLeft,
+          title: lang.turnYourHeadLeft,
           isCompleted: false,
-          detectionColor: Colors.green.shade800,
+          detectionColor: Colors.white70,
+        ),
+        M7LivelynessStepItem(
+          step: M7LivelynessStep.turnRight,
+          title: lang.turnYourHeadRight,
+          isCompleted: false,
+          detectionColor: Colors.white70,
         ),
       ],
+    );
+    _veificationSteps = _veificationSteps..shuffle();
+    _veificationSteps.add(
+      M7LivelynessStepItem(
+        step: M7LivelynessStep.smile,
+        title: lang.smile,
+        isCompleted: false,
+        detectionColor: Colors.white70,
+      ),
     );
     M7LivelynessDetection.instance.configure(
       lineColor: Colors.white,
@@ -77,7 +92,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
   void _onStartLivelyness() async {
     setState(() => _capturedImagePath = null);
     final M7CapturedImage? response =
-    await M7LivelynessDetection.instance.detectLivelyness(
+        await M7LivelynessDetection.instance.detectLivelyness(
       context,
       config: M7DetectionConfig(
         steps: _veificationSteps,
@@ -85,26 +100,27 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
         maxSecToDetect: _timeOutDuration == 100 ? 2500 : _timeOutDuration,
         allowAfterMaxSec: _allowAfterTimeOut,
         captureButtonColor: Colors.red,
+        attemps: '1 de 3 intentos'
       ),
     );
     if (response == null) {
       return;
     }
     setState(
-          () => _capturedImagePath = response.imgPath,
+      () => _capturedImagePath = response.imgPath,
     );
   }
 
   String _getTitle(M7LivelynessStep step) {
     switch (step) {
       case M7LivelynessStep.blink:
-        return "Blink";
+        return lang.blink;
       case M7LivelynessStep.turnLeft:
-        return "Turn Your Head Left";
+        return lang.turnYourHeadLeft;
       case M7LivelynessStep.turnRight:
-        return "Turn Your Head Right";
+        return lang.turnYourHeadRight;
       case M7LivelynessStep.smile:
-        return "Smile";
+        return lang.smile;
     }
   }
 
@@ -121,9 +137,11 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
     }
   }
 
+  void createRandomSteps() {}
+
   bool _isSelected(M7LivelynessStep step) {
     final M7LivelynessStepItem? doesExist = _veificationSteps.firstWhereOrNull(
-          (p0) => p0.step == step,
+      (p0) => p0.step == step,
     );
     return doesExist != null;
   }
@@ -145,7 +163,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       return;
     }
     final M7LivelynessStepItem? doesExist = _veificationSteps.firstWhereOrNull(
-          (p0) => p0.step == step,
+      (p0) => p0.step == step,
     );
 
     if (doesExist == null && value) {
@@ -159,7 +177,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
     } else {
       if (!value) {
         _veificationSteps.removeWhere(
-              (p0) => p0.step == step,
+          (p0) => p0.step == step,
         );
       }
     }
@@ -253,7 +271,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
             CupertinoSwitch(
               value: _startWithInfo,
               onChanged: (value) => setState(
-                    () => _startWithInfo = value,
+                () => _startWithInfo = value,
               ),
             ),
             const Spacer(
@@ -281,7 +299,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
             CupertinoSwitch(
               value: _allowAfterTimeOut,
               onChanged: (value) => setState(
-                    () => _allowAfterTimeOut = value,
+                () => _allowAfterTimeOut = value,
               ),
             ),
             const Spacer(
@@ -303,10 +321,10 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
           max: 100,
           value: _timeOutDuration.toDouble(),
           onChanged: (value) => setState(
-                () => _timeOutDuration = value.toInt(),
+            () => _timeOutDuration = value.toInt(),
           ),
         ),
-        Expanded(
+        /*Expanded(
           flex: 14,
           child: ListView.builder(
             physics: const ClampingScrollPhysics(),
@@ -345,7 +363,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
               ],
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }

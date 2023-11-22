@@ -1,3 +1,4 @@
+
 class M7StringConstants {
   static _M7LabelStrings label = _M7LabelStrings();
   static _M7ButtonStrings button = _M7ButtonStrings();

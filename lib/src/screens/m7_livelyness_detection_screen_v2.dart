@@ -1,6 +1,8 @@
 import 'dart:async';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
+import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
   final M7DetectionConfig config;
@@ -94,6 +96,7 @@ class _M7LivelynessDetectionScreenAndroidState
   void _preInitCallBack() {
     _steps = widget.config.steps;
     _isInfoStepCompleted = !widget.config.startWithInfoScreen;
+    _resetSteps();
   }
 
   void _postFrameCallBack() {
@@ -260,7 +263,7 @@ class _M7LivelynessDetectionScreenAndroidState
         break;
       case M7LivelynessStep.turnRight:
         const double headTurnThreshold = -50.0;
-        if ((face.headEulerAngleY ?? 0) > (headTurnThreshold)) {
+        if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
           _startProcessing();
           await _completeStep(step: step);
         }
@@ -385,44 +388,118 @@ class _M7LivelynessDetectionScreenAndroidState
       alignment: Alignment.center,
       children: [
         _isInfoStepCompleted
-            ? CameraAwesomeBuilder.custom(
-                previewFit: CameraPreviewFit.contain,
-                sensorConfig: SensorConfig.single(
-                  flashMode: FlashMode.auto,
-                  aspectRatio: CameraAspectRatios.ratio_16_9,
-                  sensor: Sensor.position(SensorPosition.front),
-                ),
-                onImageForAnalysis: (img) => _processCameraImage(img),
-                imageAnalysisConfig: AnalysisConfig(
-                  autoStart: true,
-                  androidOptions: const AndroidAnalysisOptions.nv21(
-                    width: 250,
-                  ),
-                  maxFramesPerSecond: 30,
-                ),
-                builder: (state, previewSize, previewRect) {
-                  _cameraState = state;
-                  return M7PreviewDecoratorWidget(
-                    cameraState: state,
-                    faceDetectionStream: _faceDetectionController,
-                    previewSize: previewSize,
-                    previewRect: previewRect,
-                    detectionColor:
-                        _steps[_stepsKey.currentState?.currentIndex ?? 0]
-                            .detectionColor,
-                  );
-                },
-                saveConfig: SaveConfig.photo(
-                  pathBuilder: (sensors) async {
-                    final String fileName = "${M7Utils.generate()}.jpg";
-                    final String path = await getTemporaryDirectory().then(
-                      (value) => value.path,
-                    );
-                    return SingleCaptureRequest(
-                      "$path/$fileName",
-                      Sensor.position(SensorPosition.front),
-                    );
-                  },
+            ? IgnorePointer(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      child: CameraAwesomeBuilder.custom(
+                        previewFit: CameraPreviewFit.contain,
+                        sensorConfig: SensorConfig.single(
+                          flashMode: FlashMode.auto,
+                          aspectRatio: CameraAspectRatios.ratio_16_9,
+                          sensor: Sensor.position(SensorPosition.front),
+                        ),
+                        onImageForAnalysis: (img) => _processCameraImage(img),
+                        imageAnalysisConfig: AnalysisConfig(
+                          autoStart: true,
+                          androidOptions: const AndroidAnalysisOptions.nv21(
+                            width: 250,
+                          ),
+                          maxFramesPerSecond: 30,
+                        ),
+                        builder: (state, previewSize, previewRect) {
+                          _cameraState = state;
+                          return M7PreviewDecoratorWidget(
+                            cameraState: state,
+                            faceDetectionStream: _faceDetectionController,
+                            previewSize: previewSize,
+                            previewRect: previewRect,
+                            detectionColor: _steps[
+                                    _stepsKey.currentState?.currentIndex ?? 0]
+                                .detectionColor,
+                          );
+                        },
+                        saveConfig: SaveConfig.photo(
+                          pathBuilder: (sensors) async {
+                            final String fileName = "${M7Utils.generate()}.jpg";
+                            final String path =
+                                await getTemporaryDirectory().then(
+                              (value) => value.path,
+                            );
+                            return SingleCaptureRequest(
+                              "$path/$fileName",
+                              Sensor.position(SensorPosition.front),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    ClipPath(
+                      clipper: const CircleClipper(radius: 150),
+                      child: Container(
+                        height: double.maxFinite,
+                        width: double.maxFinite,
+                        color: Colors.white,
+                      ),
+                    ),
+                    CustomPaint(
+                      painter: CircleBorderPainter(),
+                      child: const SizedBox(
+                        height: 300,
+                        width: 300,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 50,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 25,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (widget.config.instructions != null) ...[
+                                AutoSizeText(
+                                  widget.config.instructions?.trim() ?? '',
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  maxFontSize: 18,
+                                  minFontSize: 15,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                                const SizedBox(height: 22),
+                              ],
+                              if (widget.config.attemps != null) ...[
+                                AutoSizeText(
+                                  widget.config.attemps?.trim() ?? '',
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  maxFontSize: 18,
+                                  minFontSize: 15,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                                const SizedBox(height: 22),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )
             : M7LivelynessInfoWidget(
@@ -472,26 +549,21 @@ class _M7LivelynessDetectionScreenAndroidState
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 10,
-              top: 10,
-            ),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.black,
-              child: IconButton(
-                onPressed: () {
-                  _onDetectionCompleted(
-                    imgToReturn: null,
-                    didCaptureAutomatically: null,
-                  );
-                },
-                icon: const Icon(
-                  Icons.close_rounded,
-                  size: 20,
+        Positioned(
+          top: 12,
+          left: 12,
+          child: Material(
+            color: const Color(0xff822ad2),
+            borderRadius: BorderRadius.circular(10),
+            child: InkWell(
+              onTap: () => Navigator.of(context).pop(null),
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                width: 40,
+                height: 40,
+                child: const Icon(
+                  Icons.arrow_back_rounded,
                   color: Colors.white,
                 ),
               ),

@@ -17,6 +17,8 @@ class M7DetectionConfig {
 
   /// Icon color of the button that will come after the [maxSecToDetect] is completed.
   final Color? captureButtonColor;
+  final String? instructions;
+  final String? attemps;
 
   M7DetectionConfig({
     required this.steps,
@@ -24,10 +26,12 @@ class M7DetectionConfig {
     this.maxSecToDetect = 15,
     this.allowAfterMaxSec = false,
     this.captureButtonColor,
+    this.instructions,
+    this.attemps,
   }) {
     assert(
-    steps.isNotEmpty,
-    '''
+      steps.isNotEmpty,
+      '''
 Cannot pass an empty array of [M7LivelynessStepItem].
       ''',
     );
