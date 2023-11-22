@@ -20,8 +20,8 @@ class M7SmileDetectionThreshold extends M7DetectionThreshold {
     this.probability = 0.75,
   }) : super() {
     assert(
-      probability < 1.0 || probability > 0.0,
-      "Smile Probability has to be between 1.0 and 0.0",
+    probability < 1.0 || probability > 0.0,
+    "Smile Probability has to be between 1.0 and 0.0",
     );
   }
 
@@ -95,12 +95,12 @@ class M7BlinkDetectionThreshold extends M7DetectionThreshold {
     this.rightEyeProbability = 0.25,
   }) : super() {
     assert(
-      leftEyeProbability < 1.0 || leftEyeProbability > 0.0,
-      "Left Probability has to be between 1.0 and 0.0",
+    leftEyeProbability < 1.0 || leftEyeProbability > 0.0,
+    "Left Probability has to be between 1.0 and 0.0",
     );
     assert(
-      rightEyeProbability < 1.0 || rightEyeProbability > 0.0,
-      "Right Probability has to be between 1.0 and 0.0",
+    rightEyeProbability < 1.0 || rightEyeProbability > 0.0,
+    "Right Probability has to be between 1.0 and 0.0",
     );
   }
 
@@ -174,8 +174,8 @@ class M7HeadTurnDetectionThreshold extends M7DetectionThreshold {
     this.rotationAngle = 45.0,
   }) : super() {
     assert(
-      rotationAngle > 180.0 || rotationAngle > 0.0,
-      "To detect the livelyness of the face, it has to be properly visible in the camera. The threshold angle should be more than 0.0 degrees and less than 180 degrees.",
+    rotationAngle > 180.0 || rotationAngle > 0.0,
+    "To detect the livelyness of the face, it has to be properly visible in the camera. The threshold angle should be more than 0.0 degrees and less than 180 degrees.",
     );
   }
 

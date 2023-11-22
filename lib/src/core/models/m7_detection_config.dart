@@ -26,8 +26,8 @@ class M7DetectionConfig {
     this.captureButtonColor,
   }) {
     assert(
-      steps.isNotEmpty,
-      '''
+    steps.isNotEmpty,
+    '''
 Cannot pass an empty array of [M7LivelynessStepItem].
       ''',
     );

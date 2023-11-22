@@ -41,19 +41,27 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
     _veificationSteps.addAll(
       [
         M7LivelynessStepItem(
-          step: M7LivelynessStep.smile,
-          title: "Smile",
-          isCompleted: false,
-        ),
-        M7LivelynessStepItem(
           step: M7LivelynessStep.blink,
           title: "Blink",
           isCompleted: false,
+          detectionColor: Colors.amber,
+        ),
+        M7LivelynessStepItem(
+          step: M7LivelynessStep.smile,
+          title: "Smile",
+          isCompleted: false,
+          detectionColor: Colors.green.shade800,
         ),
       ],
     );
     M7LivelynessDetection.instance.configure(
-      contourColor: Colors.white,
+      lineColor: Colors.white,
+      dotColor: Colors.purple.shade800,
+      dotSize: 2.0,
+      lineWidth: 2,
+      dashValues: [2.0, 5.0],
+      displayDots: false,
+      displayLines: true,
       thresholds: [
         M7SmileDetectionThreshold(
           probability: 0.8,
@@ -68,8 +76,8 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
 
   void _onStartLivelyness() async {
     setState(() => _capturedImagePath = null);
-    final String? response =
-        await M7LivelynessDetection.instance.detectLivelyness(
+    final M7CapturedImage? response =
+    await M7LivelynessDetection.instance.detectLivelyness(
       context,
       config: M7DetectionConfig(
         steps: _veificationSteps,
@@ -83,7 +91,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       return;
     }
     setState(
-      () => _capturedImagePath = response,
+          () => _capturedImagePath = response.imgPath,
     );
   }
 
@@ -115,7 +123,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
 
   bool _isSelected(M7LivelynessStep step) {
     final M7LivelynessStepItem? doesExist = _veificationSteps.firstWhereOrNull(
-      (p0) => p0.step == step,
+          (p0) => p0.step == step,
     );
     return doesExist != null;
   }
@@ -137,7 +145,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       return;
     }
     final M7LivelynessStepItem? doesExist = _veificationSteps.firstWhereOrNull(
-      (p0) => p0.step == step,
+          (p0) => p0.step == step,
     );
 
     if (doesExist == null && value) {
@@ -151,7 +159,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
     } else {
       if (!value) {
         _veificationSteps.removeWhere(
-          (p0) => p0.step == step,
+              (p0) => p0.step == step,
         );
       }
     }
@@ -245,7 +253,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
             CupertinoSwitch(
               value: _startWithInfo,
               onChanged: (value) => setState(
-                () => _startWithInfo = value,
+                    () => _startWithInfo = value,
               ),
             ),
             const Spacer(
@@ -273,7 +281,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
             CupertinoSwitch(
               value: _allowAfterTimeOut,
               onChanged: (value) => setState(
-                () => _allowAfterTimeOut = value,
+                    () => _allowAfterTimeOut = value,
               ),
             ),
             const Spacer(
@@ -295,7 +303,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
           max: 100,
           value: _timeOutDuration.toDouble(),
           onChanged: (value) => setState(
-            () => _timeOutDuration = value.toInt(),
+                () => _timeOutDuration = value.toInt(),
           ),
         ),
         Expanded(

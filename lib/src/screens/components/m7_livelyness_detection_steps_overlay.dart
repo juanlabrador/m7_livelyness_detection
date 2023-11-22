@@ -98,11 +98,11 @@ class M7LivelynessDetectionStepOverlayState
   //? =========================================================
   void _showLoader() => setState(
         () => _isLoading = true,
-      );
+  );
 
   void _hideLoader() => setState(
         () => _isLoading = false,
-      );
+  );
 
   //* MARK: - Private Methods for UI Components
   //? =========================================================
@@ -193,26 +193,26 @@ class M7LivelynessDetectionStepOverlayState
   }
 
   Widget _buildAnimatedWidget(
-    Widget child, {
-    required bool isExiting,
-  }) {
+      Widget child, {
+        required bool isExiting,
+      }) {
     return isExiting
         ? ZoomOut(
-            animate: true,
-            child: FadeOutLeft(
-              animate: true,
-              delay: const Duration(milliseconds: 200),
-              child: child,
-            ),
-          )
+      animate: true,
+      child: FadeOutLeft(
+        animate: true,
+        delay: const Duration(milliseconds: 200),
+        child: child,
+      ),
+    )
         : ZoomIn(
-            animate: true,
-            delay: const Duration(milliseconds: 500),
-            child: FadeInRight(
-              animate: true,
-              delay: const Duration(milliseconds: 700),
-              child: child,
-            ),
-          );
+      animate: true,
+      delay: const Duration(milliseconds: 500),
+      child: FadeInRight(
+        animate: true,
+        delay: const Duration(milliseconds: 700),
+        child: child,
+      ),
+    );
   }
 }
