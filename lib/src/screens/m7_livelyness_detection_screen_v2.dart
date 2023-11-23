@@ -398,7 +398,7 @@ class _M7LivelynessDetectionScreenAndroidState
                         previewFit: CameraPreviewFit.contain,
                         sensorConfig: SensorConfig.single(
                           flashMode: FlashMode.auto,
-                          aspectRatio: CameraAspectRatios.ratio_16_9,
+                          aspectRatio: CameraAspectRatios.ratio_4_3,
                           sensor: Sensor.position(SensorPosition.front),
                         ),
                         onImageForAnalysis: (img) => _processCameraImage(img),
