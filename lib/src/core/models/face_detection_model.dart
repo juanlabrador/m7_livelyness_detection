@@ -6,6 +6,7 @@ class FaceDetectionModel {
   final int rotation;
   final InputImageRotation imageRotation;
   final Size croppedSize;
+  final AnalysisImage? img;
 
   FaceDetectionModel({
     required this.faces,
@@ -13,6 +14,7 @@ class FaceDetectionModel {
     required this.rotation,
     required this.imageRotation,
     required this.croppedSize,
+    required this.img,
   });
 
   @override

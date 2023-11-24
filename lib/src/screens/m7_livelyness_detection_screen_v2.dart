@@ -126,6 +126,7 @@ class _M7LivelynessDetectionScreenAndroidState
           rotation: 0,
           imageRotation: img.inputImageRotation,
           croppedSize: img.croppedSize,
+          img: img
         ),
       );
       await _processImage(inputImage, detectedFaces);
@@ -262,7 +263,7 @@ class _M7LivelynessDetectionScreenAndroidState
         }
         break;
       case M7LivelynessStep.turnRight:
-        const double headTurnThreshold = -50.0;
+        const double headTurnThreshold = -45.0;
         if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
           _startProcessing();
           await _completeStep(step: step);
@@ -393,7 +394,7 @@ class _M7LivelynessDetectionScreenAndroidState
                   alignment: Alignment.center,
                   children: [
                     SizedBox(
-                      width: 300,
+                      height: 500,
                       child: CameraAwesomeBuilder.custom(
                         previewFit: CameraPreviewFit.contain,
                         sensorConfig: SensorConfig.single(
@@ -411,14 +412,11 @@ class _M7LivelynessDetectionScreenAndroidState
                         ),
                         builder: (state, preview) {
                           _cameraState = state;
+                          return SizedBox();
                           return M7PreviewDecoratorWidget(
                             cameraState: state,
                             faceDetectionStream: _faceDetectionController,
-                            previewSize: preview.previewSize,
-                            previewRect: preview.rect,
-                            detectionColor: _steps[
-                                    _stepsKey.currentState?.currentIndex ?? 0]
-                                .detectionColor,
+                            preview: preview,
                           );
                         },
                         saveConfig: SaveConfig.photo(

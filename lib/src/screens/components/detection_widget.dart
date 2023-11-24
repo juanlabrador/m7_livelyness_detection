@@ -3,17 +3,13 @@ import 'package:m7_livelyness_detection/index.dart';
 class M7PreviewDecoratorWidget extends StatelessWidget {
   final CameraState cameraState;
   final Stream<FaceDetectionModel> faceDetectionStream;
-  final Size previewSize;
-  final Rect previewRect;
-  final Color? detectionColor;
+  final Preview preview;
 
   const M7PreviewDecoratorWidget({
     super.key,
     required this.cameraState,
     required this.faceDetectionStream,
-    required this.previewSize,
-    required this.previewRect,
-    this.detectionColor,
+    required this.preview,
   });
 
   @override
@@ -29,13 +25,13 @@ class M7PreviewDecoratorWidget extends StatelessWidget {
               stream: faceDetectionStream,
               builder: (_, faceModelSnapshot) {
                 if (!faceModelSnapshot.hasData) return const SizedBox();
+                final canvasTransformation = faceModelSnapshot.data!.img
+                    ?.getCanvasTransformation(preview);
                 return CustomPaint(
                   painter: M7AndroidFaceDetectorPainter(
                     model: faceModelSnapshot.requireData,
-                    previewSize: previewSize,
-                    previewRect: previewRect,
-                    isBackCamera: false, //snapshot.requireData.sensor == Sensor.position(SensorPosition.back),
-                    detectionColor: detectionColor,
+                    preview: preview,
+                    isBackCamera: false,
                   ),
                 );
               },

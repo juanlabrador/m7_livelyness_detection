@@ -5,16 +5,14 @@ import 'package:m7_livelyness_detection/index.dart';
 
 class M7AndroidFaceDetectorPainter extends CustomPainter {
   final FaceDetectionModel model;
-  final Size previewSize;
-  final Rect previewRect;
+  final Preview preview;
   final bool isBackCamera;
   final Color? detectionColor;
   late DashedPathProperties _dashedPathProperties;
 
   M7AndroidFaceDetectorPainter({
     required this.model,
-    required this.previewSize,
-    required this.previewRect,
+    required this.preview,
     required this.isBackCamera,
     this.detectionColor,
   });
@@ -28,7 +26,7 @@ class M7AndroidFaceDetectorPainter extends CustomPainter {
     );
     final croppedSize = model.croppedSize;
 
-    final ratioAnalysisToPreview = previewSize.width / croppedSize.width;
+    final ratioAnalysisToPreview = preview.previewSize.width / croppedSize.width;
 
     bool flipXY = false;
     if (Platform.isAndroid) {
@@ -144,9 +142,9 @@ class M7AndroidFaceDetectorPainter extends CustomPainter {
   @override
   bool shouldRepaint(M7AndroidFaceDetectorPainter oldDelegate) {
     return oldDelegate.isBackCamera != isBackCamera ||
-        oldDelegate.previewSize.width != previewSize.width ||
-        oldDelegate.previewSize.height != previewSize.height ||
-        oldDelegate.previewRect != previewRect ||
+        oldDelegate.preview.previewSize.width != preview.previewSize.width ||
+        oldDelegate.preview.previewSize.height != preview.previewSize.height ||
+        oldDelegate.preview.rect != preview.rect ||
         oldDelegate.model != model;
   }
 
