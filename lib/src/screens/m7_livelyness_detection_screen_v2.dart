@@ -409,13 +409,13 @@ class _M7LivelynessDetectionScreenAndroidState
                           ),
                           maxFramesPerSecond: 30,
                         ),
-                        builder: (state, previewSize, previewRect) {
+                        builder: (state, preview) {
                           _cameraState = state;
                           return M7PreviewDecoratorWidget(
                             cameraState: state,
                             faceDetectionStream: _faceDetectionController,
-                            previewSize: previewSize,
-                            previewRect: previewRect,
+                            previewSize: preview.previewSize,
+                            previewRect: preview.rect,
                             detectionColor: _steps[
                                     _stepsKey.currentState?.currentIndex ?? 0]
                                 .detectionColor,

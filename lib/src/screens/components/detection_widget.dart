@@ -3,7 +3,7 @@ import 'package:m7_livelyness_detection/index.dart';
 class M7PreviewDecoratorWidget extends StatelessWidget {
   final CameraState cameraState;
   final Stream<FaceDetectionModel> faceDetectionStream;
-  final PreviewSize previewSize;
+  final Size previewSize;
   final Rect previewRect;
   final Color? detectionColor;
 
