@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
+import 'package:collection/collection.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
   final M7DetectionConfig config;
@@ -255,17 +256,31 @@ class _M7LivelynessDetectionScreenAndroidState
         }
         break;
       case M7LivelynessStep.turnLeft:
-        const double headTurnThreshold = 45.0;
-        if ((face.headEulerAngleY ?? 0) > (headTurnThreshold)) {
-          _startProcessing();
-          await _completeStep(step: step);
+        if (Platform.isIOS) {
+          if ((face.headEulerAngleY ?? 0) < -45) {
+            _startProcessing();
+            await _completeStep(step: step);
+          }
+        } else {
+          const double headTurnThreshold = 45.0;
+          if ((face.headEulerAngleY ?? 0) > (headTurnThreshold)) {
+            _startProcessing();
+            await _completeStep(step: step);
+          }
         }
         break;
       case M7LivelynessStep.turnRight:
-        const double headTurnThreshold = -45.0;
-        if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
-          _startProcessing();
-          await _completeStep(step: step);
+        if (Platform.isIOS) {
+          if ((face.headEulerAngleY ?? 0) > 45) {
+            _startProcessing();
+            await _completeStep(step: step);
+          }
+        } else {
+          const double headTurnThreshold = -45.0;
+          if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
+            _startProcessing();
+            await _completeStep(step: step);
+          }
         }
         break;
       case M7LivelynessStep.smile:
@@ -393,7 +408,7 @@ class _M7LivelynessDetectionScreenAndroidState
                   alignment: Alignment.center,
                   children: [
                     SizedBox(
-                      height: 500,
+                      height: 650,
                       child: CameraAwesomeBuilder.custom(
                         previewFit: CameraPreviewFit.contain,
                         sensorConfig: SensorConfig.single(
