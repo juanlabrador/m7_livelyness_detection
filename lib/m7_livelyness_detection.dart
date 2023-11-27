@@ -8,7 +8,7 @@ class M7LivelynessDetection {
   M7LivelynessDetection._privateConstructor();
 
   static final M7LivelynessDetection instance =
-  M7LivelynessDetection._privateConstructor();
+      M7LivelynessDetection._privateConstructor();
 
   //* MARK: - Private Variables
   //? =========================================================
@@ -77,17 +77,13 @@ class M7LivelynessDetection {
   /// * context: - Positional Parameter that will accept a `BuildContext` using which it will redirect the a new screen.
   /// * config: - Accepts a `M7DetectionConfig` object which will hold all the setup config of the package.
   Future<M7CapturedImage?> detectLivelyness(
-      BuildContext context, {
-        required M7DetectionConfig config,
-      }) async {
+    BuildContext context, {
+    required M7DetectionConfig config,
+  }) async {
     _safeAreaPadding = MediaQuery.of(context).padding;
     final M7CapturedImage? capturedFacePath = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => Platform.isIOS
-            ? M7LivelynessDetectionScreenV1(
-          config: config,
-        )
-            : M7LivelynessDetectionPageV2(
+        builder: (context) => M7LivelynessDetectionPageV2(
           config: config,
         ),
       ),
@@ -110,12 +106,12 @@ class M7LivelynessDetection {
     List<double>? dashValues,
   }) {
     assert(
-    thresholds.isNotEmpty,
-    "Threshold configuration cannot be empty",
+      thresholds.isNotEmpty,
+      "Threshold configuration cannot be empty",
     );
     assert(
-    _dashValues == null || _dashValues!.length == 2,
-    "Dash values must be of length 2",
+      _dashValues == null || _dashValues!.length == 2,
+      "Dash values must be of length 2",
     );
     _thresholds.clear();
     _thresholds.addAll(thresholds);
