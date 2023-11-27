@@ -103,7 +103,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
           attemps: '1 de 3 intentos',
           infoTitle: 'Prueba de vida',
           infoDescription:
-              'Usamos esta selfie para compararla con las fotos obligatorias en el siguiente paso.',
+              'We use this selfie to compare with the mandatory(s) photos on the next step.',
           infoStep1Title: 'Buena iluminación',
           infoStep1Description:
               'Asegúrate de estar en un área bien iluminada y con ambos oídos descubiertos.',

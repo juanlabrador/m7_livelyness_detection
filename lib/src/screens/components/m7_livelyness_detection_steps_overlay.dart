@@ -160,8 +160,8 @@ class M7LivelynessDetectionStepOverlayState
                       widget.steps[index].title,
                       maxLines: 3,
                       textAlign: TextAlign.center,
-                      maxFontSize: 24,
-                      minFontSize: 18,
+                      maxFontSize: 26,
+                      minFontSize: 22,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
