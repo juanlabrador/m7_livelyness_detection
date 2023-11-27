@@ -121,13 +121,12 @@ class _M7LivelynessDetectionScreenAndroidState
           await faceDetector.processImage(inputImage);
       _faceDetectionController.add(
         FaceDetectionModel(
-          faces: detectedFaces,
-          absoluteImageSize: inputImage.metadata!.size,
-          rotation: 0,
-          imageRotation: img.inputImageRotation,
-          croppedSize: img.croppedSize,
-          img: img
-        ),
+            faces: detectedFaces,
+            absoluteImageSize: inputImage.metadata!.size,
+            rotation: 0,
+            imageRotation: img.inputImageRotation,
+            croppedSize: img.croppedSize,
+            img: img),
       );
       await _processImage(inputImage, detectedFaces);
       if (mounted) {
@@ -501,6 +500,7 @@ class _M7LivelynessDetectionScreenAndroidState
                 ),
               )
             : M7LivelynessInfoWidget(
+                config: widget.config,
                 onStartTap: () {
                   if (!mounted) {
                     return;

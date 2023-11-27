@@ -7,7 +7,7 @@ class M7StringConstants {
 class _M7LabelStrings {
   final String livelyNessDetection = "Livelyness Detection";
   final String goodLighting = "Good Lighting";
-  final String lookStraight = "Look Straight";
+  final String lookStraight = "Mira recto";
   final String goodLightingSubText =
       "Make sure you are in a well lit area and both ears are uncovered";
   final String lookStraightSubText =

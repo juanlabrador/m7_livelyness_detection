@@ -14,7 +14,7 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
   //? =========================================================
   String? _capturedImagePath;
   final bool _isLoading = false;
-  bool _startWithInfo = false;
+  bool _startWithInfo = true;
   bool _allowAfterTimeOut = false;
   List<M7LivelynessStepItem> _veificationSteps = [];
   int _timeOutDuration = 30;
@@ -95,13 +95,21 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
         await M7LivelynessDetection.instance.detectLivelyness(
       context,
       config: M7DetectionConfig(
-        steps: _veificationSteps,
-        startWithInfoScreen: _startWithInfo,
-        maxSecToDetect: _timeOutDuration == 100 ? 2500 : _timeOutDuration,
-        allowAfterMaxSec: _allowAfterTimeOut,
-        captureButtonColor: Colors.red,
-        attemps: '1 de 3 intentos'
-      ),
+          steps: _veificationSteps,
+          startWithInfoScreen: _startWithInfo,
+          maxSecToDetect: _timeOutDuration == 100 ? 2500 : _timeOutDuration,
+          allowAfterMaxSec: _allowAfterTimeOut,
+          captureButtonColor: Colors.red,
+          attemps: '1 de 3 intentos',
+          infoTitle: 'Prueba de vida',
+          infoDescription:
+              'Usamos esta selfie para compararla con las fotos obligatorias en el siguiente paso.',
+          infoStep1Title: 'Buena iluminación',
+          infoStep1Description:
+              'Asegúrate de estar en un área bien iluminada y con ambos oídos descubiertos.',
+          infoStep2Title: M7StringConstants.label.lookStraight,
+          infoStep2Description: M7StringConstants.label.lookStraightSubText,
+      buttonStart: 'Comenzar',),
     );
     if (response == null) {
       return;

@@ -2,7 +2,10 @@ import 'package:m7_livelyness_detection/index.dart';
 
 class M7LivelynessInfoWidget extends StatefulWidget {
   final VoidCallback onStartTap;
+  final M7DetectionConfig? config;
+
   const M7LivelynessInfoWidget({
+    required this.config,
     required this.onStartTap,
     super.key,
   });
@@ -20,43 +23,46 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      height: double.maxFinite,
+      width: double.maxFinite,
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Spacer(
-            flex: 2,
-          ),
-          Text(
-            M7StringConstants.label.livelyNessDetection,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 70),
+            Text(
+              widget.config?.infoTitle ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Montserrat',
+                fontSize: 22,
+              ),
             ),
-          ),
-          const Spacer(),
-          Text(
-            M7StringConstants.label.infoSubText,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.blueGrey,
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
-              height: 1.5,
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.config?.infoDescription ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Montserrat',
+                  fontSize: 18,
+                  height: 1.5,
+                ),
+              ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Center(
+            Center(
               child: Container(
+                width: 150,
                 color: Colors.transparent,
                 child: Lottie.asset(
                   M7AssetConstants.lottie.livelynessStart,
@@ -68,21 +74,18 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
               ),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: const [
                     BoxShadow(
-                      blurRadius: 5,
-                      spreadRadius: 2.5,
+                      blurRadius: 3,
+                      spreadRadius: 2,
                       color: Colors.black12,
                     ),
                   ],
@@ -92,68 +95,65 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Center(
-                          child: Container(
-                            child: _buildPointWidget(
-                              index: 1,
-                              title: M7StringConstants.label.goodLighting,
-                              subTitle:
-                              M7StringConstants.label.goodLightingSubText,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Center(
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Center(
+                        child: Container(
                           child: _buildPointWidget(
-                            index: 2,
-                            title: M7StringConstants.label.lookStraight,
-                            subTitle:
-                            M7StringConstants.label.lookStraightSubText,
+                            index: 1,
+                            title: widget.config?.infoStep1Title ?? '',
+                            subTitle: widget.config?.infoStep1Description ?? '',
                           ),
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Center(
+                        child: _buildPointWidget(
+                          index: 2,
+                          title: widget.config?.infoStep2Title ?? '',
+                          subTitle: widget.config?.infoStep2Description ?? '',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () => widget.onStartTap(),
-              style: TextButton.styleFrom(
-                elevation: 3,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 10,
+            const SizedBox(height: 50),
+            Center(
+              child: ElevatedButton(
+                onPressed: widget.onStartTap,
+                style: TextButton.styleFrom(
+                  elevation: 3,
+                  backgroundColor: const Color(0xff822ad2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-              child: Text(
-                M7StringConstants.button.start,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
+                child: Text(
+                  widget.config?.buttonStart ?? '',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 24,
+                  ),
                 ),
               ),
             ),
-          ),
-          const Spacer(),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -169,58 +169,53 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
-          backgroundColor: Colors.green.shade900,
+          backgroundColor: const Color(0xff822ad2),
           child: Text(
             "$index",
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
               fontSize: 16,
             ),
           ),
         ),
-        const Spacer(),
+        const SizedBox(width: 15),
         Expanded(
-          flex: 10,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.start,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.start,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat',
+                    fontSize: 16,
                   ),
                 ),
               ),
-              // const Spacer(),
-              Expanded(
-                flex: 10,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    subTitle,
-                    textAlign: TextAlign.start,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.blueGrey,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      height: 1.5,
-                    ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  subTitle,
+                  textAlign: TextAlign.start,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Montserrat',
+                    fontSize: 14,
+                    height: 1.5,
                   ),
                 ),
               ),

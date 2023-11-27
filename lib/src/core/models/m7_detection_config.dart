@@ -19,6 +19,13 @@ class M7DetectionConfig {
   final Color? captureButtonColor;
   final String? instructions;
   final String? attemps;
+  final String? infoTitle;
+  final String? infoDescription;
+  final String? infoStep1Title;
+  final String? infoStep1Description;
+  final String? infoStep2Title;
+  final String? infoStep2Description;
+  final String? buttonStart;
 
   M7DetectionConfig({
     required this.steps,
@@ -28,6 +35,13 @@ class M7DetectionConfig {
     this.captureButtonColor,
     this.instructions,
     this.attemps,
+    this.infoTitle,
+    this.infoDescription,
+    this.infoStep1Title,
+    this.infoStep1Description,
+    this.infoStep2Title,
+    this.infoStep2Description,
+    this.buttonStart,
   }) {
     assert(
       steps.isNotEmpty,
