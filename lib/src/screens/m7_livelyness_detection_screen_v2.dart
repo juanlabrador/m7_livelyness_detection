@@ -3,7 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
-import 'package:collection/collection.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
   final M7DetectionConfig config;
@@ -148,7 +147,7 @@ class _M7LivelynessDetectionScreenAndroidState
   Future<void> _processImage(InputImage img, List<Face> faces) async {
     try {
       if (faces.isEmpty) {
-        _resetSteps();
+        //_resetSteps();
         return;
       }
       final Face firstFace = faces.first;
@@ -199,8 +198,8 @@ class _M7LivelynessDetectionScreenAndroidState
         total += value;
       });
       final double average = total / symmetry.length;
-      print("Face Symmetry: $average");
-      if (_isProcessingStep &&
+      //print("Face Symmetry: $average");
+      /*if (_isProcessingStep &&
           _steps[_stepsKey.currentState?.currentIndex ?? 0].step ==
               M7LivelynessStep.blink) {
         if (_didCloseEyes) {
@@ -211,7 +210,7 @@ class _M7LivelynessDetectionScreenAndroidState
             );
           }
         }
-      }
+      }*/
       _detect(
         face: firstFace,
         step: _steps[_stepsKey.currentState?.currentIndex ?? 0].step,
@@ -234,6 +233,10 @@ class _M7LivelynessDetectionScreenAndroidState
     if (mounted) {
       setState(() {});
     }
+    //_steps.forEach((element) {
+    //print("PASO -> ${element.title}: ${element.isCompleted}");
+    //});
+    //print('PASO --------');
     await _stepsKey.currentState?.nextPage();
     _stopProcessing();
   }
@@ -247,47 +250,64 @@ class _M7LivelynessDetectionScreenAndroidState
         const double blinkThreshold = 0.25;
         if ((face.leftEyeOpenProbability ?? 1.0) < (blinkThreshold) &&
             (face.rightEyeOpenProbability ?? 1.0) < (blinkThreshold)) {
-          _startProcessing();
-          if (mounted) {
+          if (!_isProcessingStep) {
+            _startProcessing();
+            //print('ENTRE EN PASO BLINK --------');
+            await _completeStep(step: step);
+          }
+          /*if (mounted) {
             setState(
               () => _didCloseEyes = true,
             );
-          }
+          }*/
         }
         break;
       case M7LivelynessStep.turnLeft:
         if (Platform.isIOS) {
           if ((face.headEulerAngleY ?? 0) < -45) {
-            _startProcessing();
-            await _completeStep(step: step);
+            if (!_isProcessingStep) {
+              _startProcessing();
+              await _completeStep(step: step);
+            }
           }
         } else {
           const double headTurnThreshold = 45.0;
           if ((face.headEulerAngleY ?? 0) > (headTurnThreshold)) {
-            _startProcessing();
-            await _completeStep(step: step);
+            if (!_isProcessingStep) {
+              _startProcessing();
+              //print('ENTRE EN PASO GIRO IzQUIERDa --------');
+              await _completeStep(step: step);
+            }
           }
         }
         break;
       case M7LivelynessStep.turnRight:
         if (Platform.isIOS) {
           if ((face.headEulerAngleY ?? 0) > 45) {
-            _startProcessing();
-            await _completeStep(step: step);
+            if (!_isProcessingStep) {
+              _startProcessing();
+              await _completeStep(step: step);
+            }
           }
         } else {
           const double headTurnThreshold = -45.0;
           if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
-            _startProcessing();
-            await _completeStep(step: step);
+            if (!_isProcessingStep) {
+              _startProcessing();
+              //print('ENTRE EN PASO GIRO DERECHA --------');
+              await _completeStep(step: step);
+            }
           }
         }
         break;
       case M7LivelynessStep.smile:
         const double smileThreshold = 0.75;
         if ((face.smilingProbability ?? 0) > (smileThreshold)) {
-          _startProcessing();
-          await _completeStep(step: step);
+          if (!_isProcessingStep) {
+            _startProcessing();
+            print('ENTRE EN PASO SONRISA --------');
+            await _completeStep(step: step);
+          }
         }
         break;
     }
@@ -377,6 +397,7 @@ class _M7LivelynessDetectionScreenAndroidState
   }
 
   void _resetSteps() async {
+    //print ("PASO -> SE RESETEO");
     for (var p0 in _steps) {
       final int index = _steps.indexWhere(
         (p1) => p1.step == p0.step,
