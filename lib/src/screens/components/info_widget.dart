@@ -41,6 +41,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
             backgroundColor: Colors.white,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_rounded),
+              color: Colors.black,
               onPressed: widget.onBack,
             ),
             title: Text(

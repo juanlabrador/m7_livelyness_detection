@@ -422,6 +422,7 @@ class _M7LivelynessDetectionScreenAndroidState
                     backgroundColor: Colors.white,
                     leading: IconButton(
                       icon: const Icon(Icons.arrow_back_rounded),
+                      color: Colors.black,
                       onPressed: () => Navigator.of(context).pop(null),
                     ),
                     title: Text(
