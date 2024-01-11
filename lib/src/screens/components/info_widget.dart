@@ -29,7 +29,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
       color: Colors.white,
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+          statusBarColor: Colors.white,
           systemNavigationBarColor: Colors.white,
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.dark,
@@ -39,6 +39,8 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.white,
+            forceMaterialTransparency: true,
+            elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_rounded),
               color: Colors.black,

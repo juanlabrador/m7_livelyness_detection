@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_progress_stack/circular_progress_stack.dart';
+import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
@@ -415,15 +416,26 @@ class _M7LivelynessDetectionScreenAndroidState
       alignment: Alignment.center,
       children: [
         _isInfoStepCompleted
-            ? IgnorePointer(
+            ? AnnotatedRegion<SystemUiOverlayStyle>(
+                value: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.white,
+                  systemNavigationBarColor: Colors.white,
+                  statusBarBrightness: Brightness.light,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarIconBrightness: Brightness.light,
+                ),
                 child: Scaffold(
                   backgroundColor: Colors.white,
                   appBar: AppBar(
                     backgroundColor: Colors.white,
+                    forceMaterialTransparency: true,
+                    elevation: 0,
                     leading: IconButton(
                       icon: const Icon(Icons.arrow_back_rounded),
                       color: Colors.black,
-                      onPressed: () => Navigator.of(context).pop(null),
+                      onPressed: () {
+                        Navigator.of(context).pop(null);
+                      },
                     ),
                     title: Text(
                       widget.config.attemps ?? langLivelyness.lifeTest,
@@ -436,97 +448,108 @@ class _M7LivelynessDetectionScreenAndroidState
                       ),
                     ),
                   ),
-                  body: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        height: 650,
-                        child: CameraAwesomeBuilder.custom(
-                          previewFit: CameraPreviewFit.contain,
-                          sensorConfig: SensorConfig.single(
-                            flashMode: FlashMode.auto,
-                            aspectRatio: CameraAspectRatios.ratio_4_3,
-                            sensor: Sensor.position(SensorPosition.front),
-                          ),
-                          onImageForAnalysis: (img) => _processCameraImage(img),
-                          imageAnalysisConfig: AnalysisConfig(
-                            autoStart: true,
-                            androidOptions: const AndroidAnalysisOptions.nv21(
-                              width: 250,
+                  body: IgnorePointer(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          height: 650,
+                          child: CameraAwesomeBuilder.custom(
+                            previewFit: CameraPreviewFit.contain,
+                            sensorConfig: SensorConfig.single(
+                              flashMode: FlashMode.auto,
+                              aspectRatio: CameraAspectRatios.ratio_4_3,
+                              sensor: Sensor.position(SensorPosition.front),
                             ),
-                            maxFramesPerSecond: 30,
-                          ),
-                          builder: (state, preview) {
-                            _cameraState = state;
-                            return const SizedBox();
-                          },
-                          saveConfig: SaveConfig.photo(
-                            pathBuilder: (sensors) async {
-                              final String fileName =
-                                  "${M7Utils.generate()}.jpg";
-                              final String path =
-                                  await getTemporaryDirectory().then(
-                                (value) => value.path,
-                              );
-                              return SingleCaptureRequest(
-                                "$path/$fileName",
-                                Sensor.position(SensorPosition.front),
-                              );
+                            onImageForAnalysis: (img) =>
+                                _processCameraImage(img),
+                            imageAnalysisConfig: AnalysisConfig(
+                              autoStart: true,
+                              androidOptions: const AndroidAnalysisOptions.nv21(
+                                width: 250,
+                              ),
+                              maxFramesPerSecond: 30,
+                            ),
+                            builder: (state, preview) {
+                              _cameraState = state;
+                              return const SizedBox();
                             },
+                            saveConfig: SaveConfig.photo(
+                              pathBuilder: (sensors) async {
+                                final String fileName =
+                                    "${M7Utils.generate()}.jpg";
+                                final String path =
+                                    await getTemporaryDirectory().then(
+                                  (value) => value.path,
+                                );
+                                return SingleCaptureRequest(
+                                  "$path/$fileName",
+                                  Sensor.position(SensorPosition.front),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      ClipPath(
-                        clipper: const CircleClipper(radius: 150),
-                        child: Container(
-                          height: double.maxFinite,
-                          width: double.maxFinite,
-                          color: Colors.white,
+                        ClipPath(
+                          clipper: const CircleClipper(radius: 150),
+                          child: Container(
+                            height: double.maxFinite,
+                            width: double.maxFinite,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      CustomPaint(
-                        painter: CircleBorderPainter(),
-                        child: const SizedBox(
-                          height: 300,
-                          width: 300,
+                        CustomPaint(
+                          painter: CircleBorderPainter(),
+                          child: const SizedBox(
+                            height: 300,
+                            width: 300,
+                          ),
                         ),
-                      ),
-                      Center(
-                        child: SingleSimpleStackCircularProgressBar(
-                          size: 300,
-                          progressStrokeWidth: 10,
-                          backStrokeWidth: 10,
-                          startAngle: 0,
-                          isTextShow: false,
-                          backColor: const Color(0xffcccccc),
-                          barColor: const Color(0xff822ad2),
-                          barValue: _start / widget.config.maxSecToDetect * 100,
+                        Center(
+                          child: SingleSimpleStackCircularProgressBar(
+                            size: 300,
+                            progressStrokeWidth: 10,
+                            backStrokeWidth: 10,
+                            startAngle: 0,
+                            isTextShow: false,
+                            backColor: const Color(0xffcccccc),
+                            barColor: const Color(0xff822ad2),
+                            barValue:
+                                _start / widget.config.maxSecToDetect * 100,
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 100,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                            ),
-                            child: AutoSizeText(
-                              '${widget.config.maxSecToDetect - _start} ${langLivelyness.sec}',
-                              textAlign: TextAlign.center,
-                              maxFontSize: 24,
-                              minFontSize: 20,
-                              style: const TextStyle(
-                                color: Color(0xff822ad2),
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Montserrat',
+                        Positioned(
+                          bottom: 100,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25,
+                              ),
+                              child: AutoSizeText(
+                                '${widget.config.maxSecToDetect - _start} ${langLivelyness.sec}',
+                                textAlign: TextAlign.center,
+                                maxFontSize: 24,
+                                minFontSize: 20,
+                                style: const TextStyle(
+                                  color: Color(0xff822ad2),
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Montserrat',
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        M7LivelynessDetectionStepOverlay(
+                          key: _stepsKey,
+                          steps: _steps,
+                          onCompleted: () => _takePicture(
+                            didCaptureAutomatically: true,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -543,14 +566,6 @@ class _M7LivelynessDetectionScreenAndroidState
                   );
                 },
               ),
-        if (_isInfoStepCompleted)
-          M7LivelynessDetectionStepOverlay(
-            key: _stepsKey,
-            steps: _steps,
-            onCompleted: () => _takePicture(
-              didCaptureAutomatically: true,
-            ),
-          ),
         Visibility(
           visible: _isCaptureButtonVisible,
           child: Column(

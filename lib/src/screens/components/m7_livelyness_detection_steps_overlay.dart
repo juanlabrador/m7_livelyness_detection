@@ -45,8 +45,8 @@ class M7LivelynessDetectionStepOverlayState
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      height: double.maxFinite,
+      width: double.maxFinite,
       color: Colors.transparent,
       child: Stack(
         fit: StackFit.expand,
@@ -122,7 +122,6 @@ class M7LivelynessDetectionStepOverlayState
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  const SizedBox(height: 70),
                   if (widget.steps[index].step ==
                       M7LivelynessStep.blink) ...[
                     SizedBox(
