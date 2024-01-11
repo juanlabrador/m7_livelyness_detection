@@ -42,19 +42,16 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       [
         M7LivelynessStepItem(
           step: M7LivelynessStep.blink,
-          title: lang.blink,
           isCompleted: false,
           detectionColor: Colors.white70,
         ),
         M7LivelynessStepItem(
           step: M7LivelynessStep.turnLeft,
-          title: lang.turnYourHeadLeft,
           isCompleted: false,
           detectionColor: Colors.white70,
         ),
         M7LivelynessStepItem(
           step: M7LivelynessStep.turnRight,
-          title: lang.turnYourHeadRight,
           isCompleted: false,
           detectionColor: Colors.white70,
         ),
@@ -64,7 +61,6 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
     _veificationSteps.add(
       M7LivelynessStepItem(
         step: M7LivelynessStep.smile,
-        title: lang.smile,
         isCompleted: false,
         detectionColor: Colors.white70,
       ),
@@ -95,21 +91,13 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
         await M7LivelynessDetection.instance.detectLivelyness(
       context,
       config: M7DetectionConfig(
-          steps: _veificationSteps,
-          startWithInfoScreen: _startWithInfo,
-          maxSecToDetect: _timeOutDuration == 100 ? 2500 : _timeOutDuration,
-          allowAfterMaxSec: _allowAfterTimeOut,
-          captureButtonColor: Colors.red,
-          attemps: '1 de 3 intentos',
-          infoTitle: 'Prueba de vida',
-          infoDescription:
-              'We use this selfie to compare with the mandatory(s) photos on the next step.',
-          infoStep1Title: 'Buena iluminación',
-          infoStep1Description:
-              'Asegúrate de estar en un área bien iluminada y con ambos oídos descubiertos.',
-          infoStep2Title: M7StringConstants.label.lookStraight,
-          infoStep2Description: M7StringConstants.label.lookStraightSubText,
-      buttonStart: 'Comenzar',),
+        steps: _veificationSteps,
+        startWithInfoScreen: _startWithInfo,
+        maxSecToDetect: _timeOutDuration == 100 ? 2500 : _timeOutDuration,
+        allowAfterMaxSec: _allowAfterTimeOut,
+        captureButtonColor: Colors.red,
+        attemps: '1 de 3 intentos',
+      ),
     );
     if (response == null) {
       return;
@@ -178,7 +166,6 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
       _veificationSteps.add(
         M7LivelynessStepItem(
           step: step,
-          title: _getTitle(step),
           isCompleted: false,
         ),
       );

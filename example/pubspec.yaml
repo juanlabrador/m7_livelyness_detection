@@ -32,7 +32,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   lottie: ^2.7.0
-  collection: 1.17.2
+  collection:
   intl: ^0.18.0
 
 dev_dependencies:

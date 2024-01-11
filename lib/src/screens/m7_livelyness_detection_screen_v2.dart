@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:circular_progress_stack/circular_progress_stack.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
@@ -63,8 +64,10 @@ class _M7LivelynessDetectionScreenAndroidState
   bool _isProcessing = false;
   late bool _isInfoStepCompleted;
   Timer? _timerToDetectFace;
+  Timer? _counter;
   bool _isCaptureButtonVisible = false;
   bool _isCompleted = false;
+  int _start = 0;
 
   //* MARK: - Life Cycle Methods
   //? =========================================================
@@ -88,6 +91,8 @@ class _M7LivelynessDetectionScreenAndroidState
     _faceDetectionController.close();
     _timerToDetectFace?.cancel();
     _timerToDetectFace = null;
+    _counter?.cancel();
+    _counter = null;
     super.dispose();
   }
 
@@ -198,19 +203,6 @@ class _M7LivelynessDetectionScreenAndroidState
         total += value;
       });
       final double average = total / symmetry.length;
-      //print("Face Symmetry: $average");
-      /*if (_isProcessingStep &&
-          _steps[_stepsKey.currentState?.currentIndex ?? 0].step ==
-              M7LivelynessStep.blink) {
-        if (_didCloseEyes) {
-          if ((faces.first.leftEyeOpenProbability ?? 1.0) < 0.75 &&
-              (faces.first.rightEyeOpenProbability ?? 1.0) < 0.75) {
-            await _completeStep(
-              step: _steps[_stepsKey.currentState?.currentIndex ?? 0].step,
-            );
-          }
-        }
-      }*/
       _detect(
         face: firstFace,
         step: _steps[_stepsKey.currentState?.currentIndex ?? 0].step,
@@ -226,17 +218,12 @@ class _M7LivelynessDetectionScreenAndroidState
     final int indexToUpdate = _steps.indexWhere(
       (p0) => p0.step == step,
     );
-
     _steps[indexToUpdate] = _steps[indexToUpdate].copyWith(
       isCompleted: true,
     );
     if (mounted) {
       setState(() {});
     }
-    //_steps.forEach((element) {
-    //print("PASO -> ${element.title}: ${element.isCompleted}");
-    //});
-    //print('PASO --------');
     await _stepsKey.currentState?.nextPage();
     _stopProcessing();
   }
@@ -252,7 +239,6 @@ class _M7LivelynessDetectionScreenAndroidState
             (face.rightEyeOpenProbability ?? 1.0) < (blinkThreshold)) {
           if (!_isProcessingStep) {
             _startProcessing();
-            //print('ENTRE EN PASO BLINK --------');
             await _completeStep(step: step);
           }
           /*if (mounted) {
@@ -264,18 +250,17 @@ class _M7LivelynessDetectionScreenAndroidState
         break;
       case M7LivelynessStep.turnLeft:
         if (Platform.isIOS) {
-          if ((face.headEulerAngleY ?? 0) < -45) {
+          if ((face.headEulerAngleY ?? 0) < -35) {
             if (!_isProcessingStep) {
               _startProcessing();
               await _completeStep(step: step);
             }
           }
         } else {
-          const double headTurnThreshold = 45.0;
+          const double headTurnThreshold = 35;
           if ((face.headEulerAngleY ?? 0) > (headTurnThreshold)) {
             if (!_isProcessingStep) {
               _startProcessing();
-              //print('ENTRE EN PASO GIRO IzQUIERDa --------');
               await _completeStep(step: step);
             }
           }
@@ -283,18 +268,17 @@ class _M7LivelynessDetectionScreenAndroidState
         break;
       case M7LivelynessStep.turnRight:
         if (Platform.isIOS) {
-          if ((face.headEulerAngleY ?? 0) > 45) {
+          if ((face.headEulerAngleY ?? 0) > 35) {
             if (!_isProcessingStep) {
               _startProcessing();
               await _completeStep(step: step);
             }
           }
         } else {
-          const double headTurnThreshold = -45.0;
+          const double headTurnThreshold = -35;
           if ((face.headEulerAngleY ?? 0) < (headTurnThreshold)) {
             if (!_isProcessingStep) {
               _startProcessing();
-              //print('ENTRE EN PASO GIRO DERECHA --------');
               await _completeStep(step: step);
             }
           }
@@ -305,7 +289,6 @@ class _M7LivelynessDetectionScreenAndroidState
         if ((face.smilingProbability ?? 0) > (smileThreshold)) {
           if (!_isProcessingStep) {
             _startProcessing();
-            print('ENTRE EN PASO SONRISA --------');
             await _completeStep(step: step);
           }
         }
@@ -332,6 +315,15 @@ class _M7LivelynessDetectionScreenAndroidState
   }
 
   void _startTimer() {
+    _counter = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_start == widget.config.maxSecToDetect) {
+        _counter?.cancel();
+        _counter = null;
+      } else {
+        _start++;
+      }
+    });
+
     _timerToDetectFace = Timer(
       Duration(seconds: widget.config.maxSecToDetect),
       () {
@@ -397,7 +389,6 @@ class _M7LivelynessDetectionScreenAndroidState
   }
 
   void _resetSteps() async {
-    //print ("PASO -> SE RESETEO");
     for (var p0 in _steps) {
       final int index = _steps.indexWhere(
         (p1) => p1.step == p0.step,
@@ -425,117 +416,121 @@ class _M7LivelynessDetectionScreenAndroidState
       children: [
         _isInfoStepCompleted
             ? IgnorePointer(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      height: 650,
-                      child: CameraAwesomeBuilder.custom(
-                        previewFit: CameraPreviewFit.contain,
-                        sensorConfig: SensorConfig.single(
-                          flashMode: FlashMode.auto,
-                          aspectRatio: CameraAspectRatios.ratio_4_3,
-                          sensor: Sensor.position(SensorPosition.front),
-                        ),
-                        onImageForAnalysis: (img) => _processCameraImage(img),
-                        imageAnalysisConfig: AnalysisConfig(
-                          autoStart: true,
-                          androidOptions: const AndroidAnalysisOptions.nv21(
-                            width: 250,
+                child: Scaffold(
+                  backgroundColor: Colors.white,
+                  appBar: AppBar(
+                    backgroundColor: Colors.white,
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      onPressed: () => Navigator.of(context).pop(null),
+                    ),
+                    title: Text(
+                      widget.config.attemps ?? lang.lifeTest,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat',
+                        fontSize: 19,
+                      ),
+                    ),
+                  ),
+                  body: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        height: 650,
+                        child: CameraAwesomeBuilder.custom(
+                          previewFit: CameraPreviewFit.contain,
+                          sensorConfig: SensorConfig.single(
+                            flashMode: FlashMode.auto,
+                            aspectRatio: CameraAspectRatios.ratio_4_3,
+                            sensor: Sensor.position(SensorPosition.front),
                           ),
-                          maxFramesPerSecond: 30,
-                        ),
-                        builder: (state, preview) {
-                          _cameraState = state;
-                          return SizedBox();
-                          return M7PreviewDecoratorWidget(
-                            cameraState: state,
-                            faceDetectionStream: _faceDetectionController,
-                            preview: preview,
-                          );
-                        },
-                        saveConfig: SaveConfig.photo(
-                          pathBuilder: (sensors) async {
-                            final String fileName = "${M7Utils.generate()}.jpg";
-                            final String path =
-                                await getTemporaryDirectory().then(
-                              (value) => value.path,
-                            );
-                            return SingleCaptureRequest(
-                              "$path/$fileName",
-                              Sensor.position(SensorPosition.front),
-                            );
+                          onImageForAnalysis: (img) => _processCameraImage(img),
+                          imageAnalysisConfig: AnalysisConfig(
+                            autoStart: true,
+                            androidOptions: const AndroidAnalysisOptions.nv21(
+                              width: 250,
+                            ),
+                            maxFramesPerSecond: 30,
+                          ),
+                          builder: (state, preview) {
+                            _cameraState = state;
+                            return const SizedBox();
                           },
-                        ),
-                      ),
-                    ),
-                    ClipPath(
-                      clipper: const CircleClipper(radius: 150),
-                      child: Container(
-                        height: double.maxFinite,
-                        width: double.maxFinite,
-                        color: Colors.white,
-                      ),
-                    ),
-                    CustomPaint(
-                      painter: CircleBorderPainter(),
-                      child: const SizedBox(
-                        height: 300,
-                        width: 300,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 50,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 25,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              if (widget.config.instructions != null) ...[
-                                AutoSizeText(
-                                  widget.config.instructions?.trim() ?? '',
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                  maxFontSize: 18,
-                                  minFontSize: 15,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                                const SizedBox(height: 22),
-                              ],
-                              if (widget.config.attemps != null) ...[
-                                AutoSizeText(
-                                  widget.config.attemps?.trim() ?? '',
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                  maxFontSize: 18,
-                                  minFontSize: 15,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                                const SizedBox(height: 22),
-                              ],
-                            ],
+                          saveConfig: SaveConfig.photo(
+                            pathBuilder: (sensors) async {
+                              final String fileName =
+                                  "${M7Utils.generate()}.jpg";
+                              final String path =
+                                  await getTemporaryDirectory().then(
+                                (value) => value.path,
+                              );
+                              return SingleCaptureRequest(
+                                "$path/$fileName",
+                                Sensor.position(SensorPosition.front),
+                              );
+                            },
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      ClipPath(
+                        clipper: const CircleClipper(radius: 150),
+                        child: Container(
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          color: Colors.white,
+                        ),
+                      ),
+                      CustomPaint(
+                        painter: CircleBorderPainter(),
+                        child: const SizedBox(
+                          height: 300,
+                          width: 300,
+                        ),
+                      ),
+                      Center(
+                        child: SingleSimpleStackCircularProgressBar(
+                          size: 300,
+                          progressStrokeWidth: 10,
+                          backStrokeWidth: 10,
+                          startAngle: 0,
+                          isTextShow: false,
+                          backColor: const Color(0xffcccccc),
+                          barColor: const Color(0xff822ad2),
+                          barValue: _start / widget.config.maxSecToDetect * 100,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 100,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 25,
+                            ),
+                            child: AutoSizeText(
+                              '${widget.config.maxSecToDetect - _start} ${lang.sec}',
+                              textAlign: TextAlign.center,
+                              maxFontSize: 24,
+                              minFontSize: 20,
+                              style: const TextStyle(
+                                color: Color(0xff822ad2),
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             : M7LivelynessInfoWidget(
+                onBack: () => Navigator.of(context).pop(null),
                 config: widget.config,
                 onStartTap: () {
                   if (!mounted) {
@@ -581,27 +576,6 @@ class _M7LivelynessDetectionScreenAndroidState
               ),
               const Spacer(),
             ],
-          ),
-        ),
-        Positioned(
-          top: 12,
-          left: 12,
-          child: Material(
-            color: const Color(0xff822ad2),
-            borderRadius: BorderRadius.circular(10),
-            child: InkWell(
-              onTap: () => Navigator.of(context).pop(null),
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                width: 40,
-                height: 40,
-                child: const Icon(
-                  Icons.arrow_back_rounded,
-                  color: Colors.white,
-                ),
-              ),
-            ),
           ),
         ),
       ],

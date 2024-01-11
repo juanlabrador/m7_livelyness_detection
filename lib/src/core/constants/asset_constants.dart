@@ -6,11 +6,15 @@ class M7AssetConstants {
 
 class _M7ImageAssets {
   String get _initPath {
-    return "packages/m7_livelyness_detection/src/assets";
+    return "src/assets";
   }
 
   String get mesh {
     return "$_initPath/final-mesh.png";
+  }
+
+  String get faceExample {
+    return "$_initPath/face_example.png";
   }
 }
 
@@ -29,5 +33,21 @@ class _M7LottieAssets {
 
   String get stepCompleted {
     return "$_initPath/step_completed.json";
+  }
+
+  String get blink {
+    return "$_initPath/blink.json";
+  }
+
+  String get smile {
+    return "$_initPath/smile.json";
+  }
+
+  String get turnLeft {
+    return "$_initPath/turn-left.json";
+  }
+
+  String get turnRight {
+    return "$_initPath/turn-right.json";
   }
 }

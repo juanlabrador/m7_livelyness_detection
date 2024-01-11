@@ -1,0 +1,18 @@
+{
+  "@@locale": "pt",
+  "smile": "Sorriso",
+  "blink": "Piscar",
+  "turnYourHeadLeft": "Vire sua cabeça para a esquerda",
+  "turnYourHeadRight": "Vire sua cabeça para a direita",
+  "takeSelfie1": "Tire uma",
+  "takeSelfie2": "selfie",
+  "takeSelfie3": "do seu rosto",
+  "steps1": "- Por favor, alinhe seu rosto no centro do círculo.",
+  "steps2_1": "- Encontre um local com ",
+  "steps2_2": "boa iluminação. ",
+  "steps3": "- Sem capacete, boné, óculos, máscaras faciais, etc.",
+  "steps4": "- Não é permitida a captura de objetos.",
+  "lifeTest": "Prueba de vida",
+  "buttonStart": "Começar",
+  "sec": "segundos"
+}

@@ -14,7 +14,7 @@ dependencies:
   auto_size_text: ^3.0.0
   camera: ^0.10.5+5
   camerawesome: ^2.0.0+1
-  collection: 1.17.2
+  collection:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -23,6 +23,7 @@ dependencies:
   lottie: ^2.7.0
   plugin_platform_interface: ^2.1.6
   rxdart: ^0.27.7
+  circular_progress_stack:
   uuid: ^4.1.0
 
 dev_dependencies:
@@ -46,6 +47,11 @@ flutter:
     - packages/m7_livelyness_detection/src/assets/lottie/livelyness-success.json
     - packages/m7_livelyness_detection/src/assets/lottie/step_completed.json
     - packages/m7_livelyness_detection/src/assets/final-mesh.png
+    - packages/m7_livelyness_detection/src/assets/lottie/blink.json
+    - packages/m7_livelyness_detection/src/assets/lottie/smile.json
+    - packages/m7_livelyness_detection/src/assets/lottie/turn-left.json
+    - packages/m7_livelyness_detection/src/assets/lottie/turn-right.json
+    - packages/m7_livelyness_detection/src/assets/face_example.png
 
   fonts:
     - family: Montserrat
@@ -65,3 +71,7 @@ flutter:
       fonts:
         - asset: fonts/montserrat_semibold.ttf
 
+flutter_intl:
+  enabled: true # Required. Must be set to true to activate the plugin. Default: false
+  class_name: LangLivelyness # Optional. Sets the name for the generated localization class. Default: S
+  main_locale: es

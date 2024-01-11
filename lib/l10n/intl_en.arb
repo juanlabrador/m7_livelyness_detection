@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "smile": "Smile",
+  "blink": "Blink",
+  "turnYourHeadLeft": "Turn Your Head Left",
+  "turnYourHeadRight": "Turn Your Head Right",
+  "takeSelfie1": "Take a",
+  "takeSelfie2": "selfie",
+  "takeSelfie3": "of your face",
+  "steps1": "- Please align your face in the center of the circle.",
+  "steps2_1": "- Find a place with",
+  "steps2_2": "good lighting.",
+  "steps3": "- Without helmet, cap, glasses, face masks, etc.",
+  "steps4": "- Capturing of objects is not allowed.",
+  "lifeTest": "Life test",
+  "buttonStart": "Begin",
+  "sec": "sec"
+}

@@ -441,6 +441,7 @@ class _MLivelyness7DetectionScreenState
         _isInfoStepCompleted
             ? _buildDetectionBody()
             : M7LivelynessInfoWidget(
+                onBack: () {},
                 config: widget.config,
                 onStartTap: () {
                   if (mounted) {
