@@ -177,16 +177,16 @@ class M7LivelynessDetectionStepOverlayState
                   ],
                   AutoSizeText(
                     widget.steps[index].step == M7LivelynessStep.smile
-                        ? lang.smile
+                        ? langLivelyness.smile
                         : widget.steps[index].step ==
                         M7LivelynessStep.blink
-                        ? lang.blink
+                        ? langLivelyness.blink
                         : widget.steps[index].step ==
                         M7LivelynessStep.turnLeft
-                        ? lang.turnYourHeadLeft
+                        ? langLivelyness.turnYourHeadLeft
                         : widget.steps[index].step ==
                         M7LivelynessStep.turnRight
-                        ? lang.turnYourHeadRight
+                        ? langLivelyness.turnYourHeadRight
                         : '',
                     maxLines: 3,
                     textAlign: TextAlign.center,

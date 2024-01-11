@@ -44,7 +44,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
               onPressed: widget.onBack,
             ),
             title: Text(
-              lang.lifeTest,
+              langLivelyness.lifeTest,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,
@@ -69,7 +69,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                         textAlign: TextAlign.start,
                         text: TextSpan(children: [
                           TextSpan(
-                              text: lang.takeSelfie1,
+                              text: langLivelyness.takeSelfie1,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
@@ -77,7 +77,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                                   fontSize: 16)),
                           const TextSpan(text: ' '),
                           TextSpan(
-                              text: lang.takeSelfie2,
+                              text: langLivelyness.takeSelfie2,
                               style: const TextStyle(
                                   color: Color(0xff822ad2),
                                   fontWeight: FontWeight.w700,
@@ -85,7 +85,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                                   fontSize: 18)),
                           const TextSpan(text: ' '),
                           TextSpan(
-                              text: lang.takeSelfie3,
+                              text: langLivelyness.takeSelfie3,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
@@ -107,7 +107,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: Text(
-                      lang.steps1,
+                      langLivelyness.steps1,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         color: Colors.black,
@@ -127,7 +127,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                         textAlign: TextAlign.start,
                         text: TextSpan(children: [
                           TextSpan(
-                              text: lang.steps2_1,
+                              text: langLivelyness.steps2_1,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
@@ -135,7 +135,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                                   fontSize: 16)),
                           const TextSpan(text: ' '),
                           TextSpan(
-                              text: lang.steps2_2,
+                              text: langLivelyness.steps2_2,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,
@@ -150,7 +150,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: Text(
-                      lang.steps3,
+                      langLivelyness.steps3,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         color: Colors.black,
@@ -167,7 +167,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: Text(
-                      lang.steps4,
+                      langLivelyness.steps4,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         color: Colors.black,
@@ -194,7 +194,7 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                       ),
                     ),
                     child: Text(
-                      lang.buttonStart,
+                      langLivelyness.buttonStart,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,

@@ -425,7 +425,7 @@ class _M7LivelynessDetectionScreenAndroidState
                       onPressed: () => Navigator.of(context).pop(null),
                     ),
                     title: Text(
-                      widget.config.attemps ?? lang.lifeTest,
+                      widget.config.attemps ?? langLivelyness.lifeTest,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.black,
@@ -512,7 +512,7 @@ class _M7LivelynessDetectionScreenAndroidState
                               horizontal: 25,
                             ),
                             child: AutoSizeText(
-                              '${widget.config.maxSecToDetect - _start} ${lang.sec}',
+                              '${widget.config.maxSecToDetect - _start} ${langLivelyness.sec}',
                               textAlign: TextAlign.center,
                               maxFontSize: 24,
                               minFontSize: 20,

@@ -110,13 +110,13 @@ class _M7ExpampleScreenState extends State<M7ExpampleScreen> {
   String _getTitle(M7LivelynessStep step) {
     switch (step) {
       case M7LivelynessStep.blink:
-        return lang.blink;
+        return langLivelyness.blink;
       case M7LivelynessStep.turnLeft:
-        return lang.turnYourHeadLeft;
+        return langLivelyness.turnYourHeadLeft;
       case M7LivelynessStep.turnRight:
-        return lang.turnYourHeadRight;
+        return langLivelyness.turnYourHeadRight;
       case M7LivelynessStep.smile:
-        return lang.smile;
+        return langLivelyness.smile;
     }
   }
 

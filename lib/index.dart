@@ -24,4 +24,4 @@ export './m7_livelyness_detection_method_channel.dart';
 export './m7_livelyness_detection_platform_interface.dart';
 export './src/index.dart';
 
-LangLivelyness lang = LangLivelyness();
+LangLivelyness langLivelyness = LangLivelyness();
