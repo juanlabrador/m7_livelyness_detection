@@ -10,7 +10,7 @@ environment:
   flutter: ">=2.5.0"
 
 dependencies:
-  animate_do: ^3.1.2
+  animate_do: ^3.3.1
   auto_size_text: ^3.0.0
   camera: ^0.10.5+5
   camerawesome: ^2.0.0+1
