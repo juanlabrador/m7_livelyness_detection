@@ -76,4 +76,4 @@ flutter:
 flutter_intl:
   enabled: true # Required. Must be set to true to activate the plugin. Default: false
   class_name: LangLivelyness # Optional. Sets the name for the generated localization class. Default: S
-  main_locale: es
+  main_locale: es, en, pt
