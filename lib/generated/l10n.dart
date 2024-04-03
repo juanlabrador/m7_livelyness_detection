@@ -50,50 +50,50 @@ class LangLivelyness {
     return Localizations.of<LangLivelyness>(context, LangLivelyness);
   }
 
-  /// `Sonríe`
+  /// `Smile`
   String get smile {
     return Intl.message(
-      'Sonríe',
+      'Smile',
       name: 'smile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pestañea`
+  /// `Blink`
   String get blink {
     return Intl.message(
-      'Pestañea',
+      'Blink',
       name: 'blink',
       desc: '',
       args: [],
     );
   }
 
-  /// `Gira la cabeza hacia la izquierda`
+  /// `Turn Your Head Left`
   String get turnYourHeadLeft {
     return Intl.message(
-      'Gira la cabeza hacia la izquierda',
+      'Turn Your Head Left',
       name: 'turnYourHeadLeft',
       desc: '',
       args: [],
     );
   }
 
-  /// `Gira la cabeza hacia la derecha`
+  /// `Turn Your Head Right`
   String get turnYourHeadRight {
     return Intl.message(
-      'Gira la cabeza hacia la derecha',
+      'Turn Your Head Right',
       name: 'turnYourHeadRight',
       desc: '',
       args: [],
     );
   }
 
-  /// `Toma una`
+  /// `Take a`
   String get takeSelfie1 {
     return Intl.message(
-      'Toma una',
+      'Take a',
       name: 'takeSelfie1',
       desc: '',
       args: [],
@@ -110,90 +110,90 @@ class LangLivelyness {
     );
   }
 
-  /// `de tu rostro`
+  /// `of your face`
   String get takeSelfie3 {
     return Intl.message(
-      'de tu rostro',
+      'of your face',
       name: 'takeSelfie3',
       desc: '',
       args: [],
     );
   }
 
-  /// `- Por favor alinea tu cara en el centro del círculo.`
+  /// `- Please align your face in the center of the circle.`
   String get steps1 {
     return Intl.message(
-      '- Por favor alinea tu cara en el centro del círculo.',
+      '- Please align your face in the center of the circle.',
       name: 'steps1',
       desc: '',
       args: [],
     );
   }
 
-  /// `- Busca un lugar con`
+  /// `- Find a place with`
   String get steps2_1 {
     return Intl.message(
-      '- Busca un lugar con',
+      '- Find a place with',
       name: 'steps2_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `buena iluminación.`
+  /// `good lighting.`
   String get steps2_2 {
     return Intl.message(
-      'buena iluminación.',
+      'good lighting.',
       name: 'steps2_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `- Sin casco, gorra, gafas, tapabocas, etc.`
+  /// `- Without helmet, cap, glasses, face masks, etc.`
   String get steps3 {
     return Intl.message(
-      '- Sin casco, gorra, gafas, tapabocas, etc.',
+      '- Without helmet, cap, glasses, face masks, etc.',
       name: 'steps3',
       desc: '',
       args: [],
     );
   }
 
-  /// `- No se permite la captura de objetos.`
+  /// `- Capturing of objects is not allowed.`
   String get steps4 {
     return Intl.message(
-      '- No se permite la captura de objetos.',
+      '- Capturing of objects is not allowed.',
       name: 'steps4',
       desc: '',
       args: [],
     );
   }
 
-  /// `Prueba de vida`
+  /// `Life test`
   String get lifeTest {
     return Intl.message(
-      'Prueba de vida',
+      'Life test',
       name: 'lifeTest',
       desc: '',
       args: [],
     );
   }
 
-  /// `Comenzar`
+  /// `Begin`
   String get buttonStart {
     return Intl.message(
-      'Comenzar',
+      'Begin',
       name: 'buttonStart',
       desc: '',
       args: [],
     );
   }
 
-  /// `seg`
+  /// `sec`
   String get sec {
     return Intl.message(
-      'seg',
+      'sec',
       name: 'sec',
       desc: '',
       args: [],
@@ -206,8 +206,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<LangLivelyness> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'pt'),
     ];
   }

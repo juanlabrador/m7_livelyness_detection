@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_progress_stack/circular_progress_stack.dart';
 import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/core/extensions/lang_extension.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
 
@@ -16,10 +17,14 @@ class M7LivelynessDetectionPageV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: M7LivelynessDetectionScreenV2(
-          config: config,
+    return MaterialApp(
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
+      home: Scaffold(
+        body: SafeArea(
+          child: M7LivelynessDetectionScreenV2(
+            config: config,
+          ),
         ),
       ),
     );
