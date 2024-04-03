@@ -16,10 +16,14 @@ class M7LivelynessDetectionPageV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: M7LivelynessDetectionScreenV2(
-          config: config,
+    return MaterialApp(
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
+      home: Scaffold(
+        body: SafeArea(
+          child: M7LivelynessDetectionScreenV2(
+            config: config,
+          ),
         ),
       ),
     );
