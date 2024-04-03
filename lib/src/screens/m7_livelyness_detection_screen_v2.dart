@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
+import 'package:m7_livelyness_detection/src/core/extensions/lang_extension.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
   final M7DetectionConfig config;
