@@ -8,23 +8,19 @@ import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
-  final M7DetectionConfig config;
+  final M7DetectionConfig? config;
 
   const M7LivelynessDetectionPageV2({
-    required this.config,
+    this.config,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      home: Scaffold(
-        body: SafeArea(
-          child: M7LivelynessDetectionScreenV2(
-            config: config,
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: M7LivelynessDetectionScreenV2(
+          config: config!,
         ),
       ),
     );
