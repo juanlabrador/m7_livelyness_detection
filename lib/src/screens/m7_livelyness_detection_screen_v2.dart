@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_border_painter.dart';
 import 'package:m7_livelyness_detection/src/utils/circle_clipper.dart';
-import 'package:m7_livelyness_detection/src/core/extensions/lang_extension.dart';
 
 class M7LivelynessDetectionPageV2 extends StatelessWidget {
   final M7DetectionConfig config;
@@ -17,14 +16,10 @@ class M7LivelynessDetectionPageV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      home: Scaffold(
-        body: SafeArea(
-          child: M7LivelynessDetectionScreenV2(
-            config: config,
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: M7LivelynessDetectionScreenV2(
+          config: config,
         ),
       ),
     );
