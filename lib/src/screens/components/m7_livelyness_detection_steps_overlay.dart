@@ -85,7 +85,9 @@ class M7LivelynessDetectionStepOverlayState
         const Duration(seconds: 2),
       );
       _hideLoader();
-      setState(() => _currentIndex++);
+      if (mounted) {
+        setState(() => _currentIndex++);
+      }
     } else {
       widget.onCompleted();
     }
@@ -93,18 +95,28 @@ class M7LivelynessDetectionStepOverlayState
 
   void reset() {
     _pageController.jumpToPage(0);
-    setState(() => _currentIndex = 0);
+    if (mounted) {
+      setState(() => _currentIndex = 0);
+    }
   }
 
   //* MARK: - Private Methods for Business Logic
   //? =========================================================
-  void _showLoader() => setState(
+  void _showLoader() {
+    if (mounted) {
+      setState(
         () => _isLoading = true,
       );
+    }
+  }
 
-  void _hideLoader() => setState(
+  void _hideLoader() {
+    if (mounted) {
+      setState(
         () => _isLoading = false,
       );
+    }
+  }
 
   //* MARK: - Private Methods for UI Components
   //? =========================================================
@@ -122,8 +134,7 @@ class M7LivelynessDetectionStepOverlayState
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.blink) ...[
+                  if (widget.steps[index].step == M7LivelynessStep.blink) ...[
                     SizedBox(
                       width: 70,
                       height: 70,
@@ -135,8 +146,7 @@ class M7LivelynessDetectionStepOverlayState
                       ),
                     )
                   ],
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.smile) ...[
+                  if (widget.steps[index].step == M7LivelynessStep.smile) ...[
                     SizedBox(
                       width: 70,
                       height: 70,
@@ -177,16 +187,15 @@ class M7LivelynessDetectionStepOverlayState
                   AutoSizeText(
                     widget.steps[index].step == M7LivelynessStep.smile
                         ? langLivelyness.smile
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.blink
-                        ? langLivelyness.blink
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.turnLeft
-                        ? langLivelyness.turnYourHeadLeft
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.turnRight
-                        ? langLivelyness.turnYourHeadRight
-                        : '',
+                        : widget.steps[index].step == M7LivelynessStep.blink
+                            ? langLivelyness.blink
+                            : widget.steps[index].step ==
+                                    M7LivelynessStep.turnLeft
+                                ? langLivelyness.turnYourHeadLeft
+                                : widget.steps[index].step ==
+                                        M7LivelynessStep.turnRight
+                                    ? langLivelyness.turnYourHeadRight
+                                    : '',
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     maxFontSize: 22,
