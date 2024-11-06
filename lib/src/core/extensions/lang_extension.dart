@@ -9,8 +9,8 @@ const supportedLocales = [
   Locale('pt'),
 ];
 const localizationsDelegates = [
+  AppLocaleLivelyness.delegate,
   GlobalMaterialLocalizations.delegate,
   GlobalWidgetsLocalizations.delegate,
   GlobalCupertinoLocalizations.delegate,
-  LangLivelyness.delegate,
 ];

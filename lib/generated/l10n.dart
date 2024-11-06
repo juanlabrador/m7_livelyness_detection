@@ -12,42 +12,42 @@ import 'intl/messages_all.dart';
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
 // ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
-class LangLivelyness {
-  LangLivelyness();
+class AppLocaleLivelyness {
+  AppLocaleLivelyness();
 
-  static LangLivelyness? _current;
+  static AppLocaleLivelyness? _current;
 
-  static LangLivelyness get current {
+  static AppLocaleLivelyness get current {
     assert(_current != null,
-        'No instance of LangLivelyness was loaded. Try to initialize the LangLivelyness delegate before accessing LangLivelyness.current.');
+        'No instance of AppLocaleLivelyness was loaded. Try to initialize the AppLocaleLivelyness delegate before accessing AppLocaleLivelyness.current.');
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
-  static Future<LangLivelyness> load(Locale locale) {
+  static Future<AppLocaleLivelyness> load(Locale locale) {
     final name = (locale.countryCode?.isEmpty ?? false)
         ? locale.languageCode
         : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = LangLivelyness();
-      LangLivelyness._current = instance;
+      final instance = AppLocaleLivelyness();
+      AppLocaleLivelyness._current = instance;
 
       return instance;
     });
   }
 
-  static LangLivelyness of(BuildContext context) {
-    final instance = LangLivelyness.maybeOf(context);
+  static AppLocaleLivelyness of(BuildContext context) {
+    final instance = AppLocaleLivelyness.maybeOf(context);
     assert(instance != null,
-        'No instance of LangLivelyness present in the widget tree. Did you add LangLivelyness.delegate in localizationsDelegates?');
+        'No instance of AppLocaleLivelyness present in the widget tree. Did you add AppLocaleLivelyness.delegate in localizationsDelegates?');
     return instance!;
   }
 
-  static LangLivelyness? maybeOf(BuildContext context) {
-    return Localizations.of<LangLivelyness>(context, LangLivelyness);
+  static AppLocaleLivelyness? maybeOf(BuildContext context) {
+    return Localizations.of<AppLocaleLivelyness>(context, AppLocaleLivelyness);
   }
 
   /// `Smile`
@@ -201,7 +201,8 @@ class LangLivelyness {
   }
 }
 
-class AppLocalizationDelegate extends LocalizationsDelegate<LangLivelyness> {
+class AppLocalizationDelegate
+    extends LocalizationsDelegate<AppLocaleLivelyness> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
@@ -215,7 +216,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<LangLivelyness> {
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
   @override
-  Future<LangLivelyness> load(Locale locale) => LangLivelyness.load(locale);
+  Future<AppLocaleLivelyness> load(Locale locale) =>
+      AppLocaleLivelyness.load(locale);
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 
