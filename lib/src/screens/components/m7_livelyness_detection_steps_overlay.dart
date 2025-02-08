@@ -115,119 +115,87 @@ class M7LivelynessDetectionStepOverlayState
         controller: _pageController,
         itemCount: widget.steps.length,
         itemBuilder: (context, index) {
-          return _buildAnimatedWidget(
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.blink) ...[
-                    SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Lottie.asset(
-                        M7AssetConstants.lottie.blink,
-                        package: M7AssetConstants.packageName,
-                        animate: true,
-                        repeat: true,
-                      ),
-                    )
-                  ],
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.smile) ...[
-                    SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Lottie.asset(
-                        M7AssetConstants.lottie.smile,
-                        package: M7AssetConstants.packageName,
-                        animate: true,
-                        repeat: true,
-                      ),
-                    )
-                  ],
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.turnRight) ...[
-                    SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Lottie.asset(
-                        M7AssetConstants.lottie.turnRight,
-                        package: M7AssetConstants.packageName,
-                        animate: true,
-                        repeat: true,
-                      ),
-                    )
-                  ],
-                  if (widget.steps[index].step ==
-                      M7LivelynessStep.turnLeft) ...[
-                    SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Lottie.asset(
-                        M7AssetConstants.lottie.turnLeft,
-                        package: M7AssetConstants.packageName,
-                        animate: true,
-                        repeat: true,
-                      ),
-                    )
-                  ],
-                  AutoSizeText(
-                    widget.steps[index].step == M7LivelynessStep.smile
-                        ? langLivelyness.smile
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.blink
-                        ? langLivelyness.blink
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.turnLeft
-                        ? langLivelyness.turnYourHeadLeft
-                        : widget.steps[index].step ==
-                        M7LivelynessStep.turnRight
-                        ? langLivelyness.turnYourHeadRight
-                        : '',
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    maxFontSize: 22,
-                    minFontSize: 20,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Montserrat',
+          return Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                if (widget.steps[index].step == M7LivelynessStep.blink) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: Lottie.asset(
+                      M7AssetConstants.lottie.blink,
+                      package: M7AssetConstants.packageName,
+                      animate: true,
+                      repeat: true,
                     ),
-                  ),
+                  )
                 ],
-              ),
+                if (widget.steps[index].step == M7LivelynessStep.smile) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: Lottie.asset(
+                      M7AssetConstants.lottie.smile,
+                      package: M7AssetConstants.packageName,
+                      animate: true,
+                      repeat: true,
+                    ),
+                  )
+                ],
+                if (widget.steps[index].step == M7LivelynessStep.turnRight) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: Lottie.asset(
+                      M7AssetConstants.lottie.turnRight,
+                      package: M7AssetConstants.packageName,
+                      animate: true,
+                      repeat: true,
+                    ),
+                  )
+                ],
+                if (widget.steps[index].step == M7LivelynessStep.turnLeft) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: Lottie.asset(
+                      M7AssetConstants.lottie.turnLeft,
+                      package: M7AssetConstants.packageName,
+                      animate: true,
+                      repeat: true,
+                    ),
+                  )
+                ],
+                AutoSizeText(
+                  widget.steps[index].step == M7LivelynessStep.smile
+                      ? langLivelyness.smile
+                      : widget.steps[index].step == M7LivelynessStep.blink
+                          ? langLivelyness.blink
+                          : widget.steps[index].step ==
+                                  M7LivelynessStep.turnLeft
+                              ? langLivelyness.turnYourHeadLeft
+                              : widget.steps[index].step ==
+                                      M7LivelynessStep.turnRight
+                                  ? langLivelyness.turnYourHeadRight
+                                  : '',
+                  maxLines: 3,
+                  textAlign: TextAlign.center,
+                  maxFontSize: 22,
+                  minFontSize: 20,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+              ],
             ),
-            isExiting: index != _currentIndex,
           );
         },
       ),
     );
-  }
-
-  Widget _buildAnimatedWidget(
-    Widget child, {
-    required bool isExiting,
-  }) {
-    return isExiting
-        ? ZoomOut(
-            animate: true,
-            child: FadeOutLeft(
-              animate: true,
-              delay: const Duration(milliseconds: 200),
-              child: child,
-            ),
-          )
-        : ZoomIn(
-            animate: true,
-            delay: const Duration(milliseconds: 500),
-            child: FadeInRight(
-              animate: true,
-              delay: const Duration(milliseconds: 700),
-              child: child,
-            ),
-          );
   }
 }
