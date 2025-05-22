@@ -5,7 +5,7 @@ import 'package:m7_livelyness_detection/index.dart';
 
 class M7AndroidFaceDetectorPainter extends CustomPainter {
   final FaceDetectionModel model;
-  final Preview preview;
+  final AnalysisPreview preview;
   final bool isBackCamera;
   final Color? detectionColor;
   late DashedPathProperties _dashedPathProperties;
