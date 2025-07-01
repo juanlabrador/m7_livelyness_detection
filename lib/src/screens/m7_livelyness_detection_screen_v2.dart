@@ -225,8 +225,8 @@ class _M7LivelynessDetectionScreenAndroidState
     );
     if (mounted) {
       setState(() {});
+      await _stepsKey.currentState?.nextPage();
     }
-    await _stepsKey.currentState?.nextPage();
     _stopProcessing();
   }
 

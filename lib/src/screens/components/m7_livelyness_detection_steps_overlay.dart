@@ -84,8 +84,10 @@ class M7LivelynessDetectionStepOverlayState
       await Future.delayed(
         const Duration(seconds: 2),
       );
-      _hideLoader();
-      setState(() => _currentIndex++);
+      if (mounted) {
+        _hideLoader();
+        setState(() => _currentIndex++);
+      }
     } else {
       widget.onCompleted();
     }
