@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/utils/face_match_theme.dart';
 
 class M7LivelynessInfoWidget extends StatefulWidget {
   final VoidCallback onStartTap;
@@ -25,192 +26,172 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.white,
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          systemNavigationBarColor: Colors.white,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarIconBrightness: Brightness.light,
+    return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: widget.onBack,
         ),
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            forceMaterialTransparency: true,
-            elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_rounded),
-              color: Colors.black,
-              onPressed: widget.onBack,
-            ),
-            title: Text(
-              langLivelyness.lifeTest,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Montserrat',
-                fontSize: 19,
+        title: Text(
+          langLivelyness.lifeTest,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Montserrat',
+            fontSize: 19,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: langLivelyness.takeSelfie1,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 16)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.takeSelfie2,
+                          style: const TextStyle(
+                              color: Color(0xff822ad2),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.takeSelfie3,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                    ])),
               ),
             ),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: RichText(
-                        textAlign: TextAlign.start,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: langLivelyness.takeSelfie1,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 16)),
-                          const TextSpan(text: ' '),
-                          TextSpan(
-                              text: langLivelyness.takeSelfie2,
-                              style: const TextStyle(
-                                  color: Color(0xff822ad2),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 18)),
-                          const TextSpan(text: ' '),
-                          TextSpan(
-                              text: langLivelyness.takeSelfie3,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 18)),
-                        ])),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Image.asset(
-                  M7AssetConstants.images.faceExample,
-                  package: M7AssetConstants.packageName,
-                  width: 200,
-                  height: 200,
-                ),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: Text(
-                      langLivelyness.steps1,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: RichText(
-                        textAlign: TextAlign.start,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: langLivelyness.steps2_1,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 16)),
-                          const TextSpan(text: ' '),
-                          TextSpan(
-                              text: langLivelyness.steps2_2,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 18)),
-                        ])),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: Text(
-                      langLivelyness.steps3,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: Text(
-                      langLivelyness.steps4,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: widget.onStartTap,
-                    style: TextButton.styleFrom(
-                      elevation: 3,
-                      backgroundColor: const Color(0xff822ad2),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 10,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                    ),
-                    child: Text(
-                      langLivelyness.buttonStart,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            const SizedBox(height: 30),
+            Image.asset(
+              M7AssetConstants.images.faceExample,
+              package: M7AssetConstants.packageName,
+              width: 200,
+              height: 200,
             ),
-          ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps1,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: langLivelyness.steps2_1,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 16)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.steps2_2,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                    ])),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps3,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps4,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 50),
+            Center(
+              child: ElevatedButton(
+                onPressed: widget.onStartTap,
+                style: TextButton.styleFrom(
+                  elevation: 3,
+                  backgroundColor: const Color(0xff822ad2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Text(
+                  langLivelyness.buttonStart,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

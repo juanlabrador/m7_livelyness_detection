@@ -18,8 +18,10 @@ class LangLivelyness {
   static LangLivelyness? _current;
 
   static LangLivelyness get current {
-    assert(_current != null,
-        'No instance of LangLivelyness was loaded. Try to initialize the LangLivelyness delegate before accessing LangLivelyness.current.');
+    assert(
+      _current != null,
+      'No instance of LangLivelyness was loaded. Try to initialize the LangLivelyness delegate before accessing LangLivelyness.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class LangLivelyness {
 
   static LangLivelyness of(BuildContext context) {
     final instance = LangLivelyness.maybeOf(context);
-    assert(instance != null,
-        'No instance of LangLivelyness present in the widget tree. Did you add LangLivelyness.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of LangLivelyness present in the widget tree. Did you add LangLivelyness.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,22 +56,12 @@ class LangLivelyness {
 
   /// `Sonríe`
   String get smile {
-    return Intl.message(
-      'Sonríe',
-      name: 'smile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sonríe', name: 'smile', desc: '', args: []);
   }
 
   /// `Pestañea`
   String get blink {
-    return Intl.message(
-      'Pestañea',
-      name: 'blink',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Pestañea', name: 'blink', desc: '', args: []);
   }
 
   /// `Gira la cabeza hacia la izquierda`
@@ -92,22 +86,12 @@ class LangLivelyness {
 
   /// `Toma una`
   String get takeSelfie1 {
-    return Intl.message(
-      'Toma una',
-      name: 'takeSelfie1',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Toma una', name: 'takeSelfie1', desc: '', args: []);
   }
 
   /// `selfie`
   String get takeSelfie2 {
-    return Intl.message(
-      'selfie',
-      name: 'takeSelfie2',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('selfie', name: 'takeSelfie2', desc: '', args: []);
   }
 
   /// `de tu rostro`

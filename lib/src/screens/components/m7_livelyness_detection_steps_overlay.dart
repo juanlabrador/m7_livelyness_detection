@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/utils/face_match_theme.dart';
 
 class M7LivelynessDetectionStepOverlay extends StatefulWidget {
   final List<M7LivelynessStepItem> steps;
@@ -127,11 +128,17 @@ class M7LivelynessDetectionStepOverlayState
                   SizedBox(
                     width: 70,
                     height: 70,
-                    child: Lottie.asset(
-                      M7AssetConstants.lottie.blink,
-                      package: M7AssetConstants.packageName,
-                      animate: true,
-                      repeat: true,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.blink,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
                     ),
                   )
                 ],
@@ -139,11 +146,17 @@ class M7LivelynessDetectionStepOverlayState
                   SizedBox(
                     width: 70,
                     height: 70,
-                    child: Lottie.asset(
-                      M7AssetConstants.lottie.smile,
-                      package: M7AssetConstants.packageName,
-                      animate: true,
-                      repeat: true,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.smile,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
                     ),
                   )
                 ],
@@ -151,11 +164,17 @@ class M7LivelynessDetectionStepOverlayState
                   SizedBox(
                     width: 70,
                     height: 70,
-                    child: Lottie.asset(
-                      M7AssetConstants.lottie.turnRight,
-                      package: M7AssetConstants.packageName,
-                      animate: true,
-                      repeat: true,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.turnRight,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
                     ),
                   )
                 ],
@@ -163,11 +182,17 @@ class M7LivelynessDetectionStepOverlayState
                   SizedBox(
                     width: 70,
                     height: 70,
-                    child: Lottie.asset(
-                      M7AssetConstants.lottie.turnLeft,
-                      package: M7AssetConstants.packageName,
-                      animate: true,
-                      repeat: true,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.turnLeft,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
                     ),
                   )
                 ],
@@ -187,8 +212,8 @@ class M7LivelynessDetectionStepOverlayState
                   textAlign: TextAlign.center,
                   maxFontSize: 22,
                   minFontSize: 20,
-                  style: const TextStyle(
-                    color: Colors.black,
+                  style: TextStyle(
+                    color: context.primaryText,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Montserrat',
                   ),

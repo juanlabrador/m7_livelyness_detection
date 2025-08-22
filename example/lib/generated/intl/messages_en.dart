@@ -22,14 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "blink": MessageLookupByLibrary.simpleMessage("Blink"),
-        "smile": MessageLookupByLibrary.simpleMessage("Smile"),
-        "takeSelfie1": MessageLookupByLibrary.simpleMessage("Take a"),
-        "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
-        "takeSelfie3": MessageLookupByLibrary.simpleMessage("of your face"),
-        "turnYourHeadLeft":
-            MessageLookupByLibrary.simpleMessage("Turn Your Head Left"),
-        "turnYourHeadRight":
-            MessageLookupByLibrary.simpleMessage("Turn Your Head Right")
-      };
+    "blink": MessageLookupByLibrary.simpleMessage("Blink"),
+    "smile": MessageLookupByLibrary.simpleMessage("Smile"),
+    "takeSelfie1": MessageLookupByLibrary.simpleMessage("Take a"),
+    "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
+    "takeSelfie3": MessageLookupByLibrary.simpleMessage("of your face"),
+    "turnYourHeadLeft": MessageLookupByLibrary.simpleMessage(
+      "Turn Your Head Left",
+    ),
+    "turnYourHeadRight": MessageLookupByLibrary.simpleMessage(
+      "Turn Your Head Right",
+    ),
+  };
 }
