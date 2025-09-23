@@ -18,8 +18,10 @@ class AppLocaleLivelyness {
   static AppLocaleLivelyness? _current;
 
   static AppLocaleLivelyness get current {
-    assert(_current != null,
-        'No instance of AppLocaleLivelyness was loaded. Try to initialize the AppLocaleLivelyness delegate before accessing AppLocaleLivelyness.current.');
+    assert(
+      _current != null,
+      'No instance of AppLocaleLivelyness was loaded. Try to initialize the AppLocaleLivelyness delegate before accessing AppLocaleLivelyness.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class AppLocaleLivelyness {
 
   static AppLocaleLivelyness of(BuildContext context) {
     final instance = AppLocaleLivelyness.maybeOf(context);
-    assert(instance != null,
-        'No instance of AppLocaleLivelyness present in the widget tree. Did you add AppLocaleLivelyness.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of AppLocaleLivelyness present in the widget tree. Did you add AppLocaleLivelyness.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,22 +56,12 @@ class AppLocaleLivelyness {
 
   /// `Smile`
   String get smile {
-    return Intl.message(
-      'Smile',
-      name: 'smile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Smile', name: 'smile', desc: '', args: []);
   }
 
   /// `Blink`
   String get blink {
-    return Intl.message(
-      'Blink',
-      name: 'blink',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Blink', name: 'blink', desc: '', args: []);
   }
 
   /// `Turn Your Head Left`
@@ -92,22 +86,12 @@ class AppLocaleLivelyness {
 
   /// `Take a`
   String get takeSelfie1 {
-    return Intl.message(
-      'Take a',
-      name: 'takeSelfie1',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Take a', name: 'takeSelfie1', desc: '', args: []);
   }
 
   /// `selfie`
   String get takeSelfie2 {
-    return Intl.message(
-      'selfie',
-      name: 'takeSelfie2',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('selfie', name: 'takeSelfie2', desc: '', args: []);
   }
 
   /// `of your face`
@@ -142,12 +126,7 @@ class AppLocaleLivelyness {
 
   /// `good lighting.`
   String get steps2_2 {
-    return Intl.message(
-      'good lighting.',
-      name: 'steps2_2',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('good lighting.', name: 'steps2_2', desc: '', args: []);
   }
 
   /// `- Without helmet, cap, glasses, face masks, etc.`
@@ -172,32 +151,17 @@ class AppLocaleLivelyness {
 
   /// `Life test`
   String get lifeTest {
-    return Intl.message(
-      'Life test',
-      name: 'lifeTest',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Life test', name: 'lifeTest', desc: '', args: []);
   }
 
   /// `Begin`
   String get buttonStart {
-    return Intl.message(
-      'Begin',
-      name: 'buttonStart',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Begin', name: 'buttonStart', desc: '', args: []);
   }
 
   /// `sec`
   String get sec {
-    return Intl.message(
-      'sec',
-      name: 'sec',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('sec', name: 'sec', desc: '', args: []);
   }
 }
 

@@ -22,26 +22,30 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "blink": MessageLookupByLibrary.simpleMessage("Pestañea"),
-        "buttonStart": MessageLookupByLibrary.simpleMessage("Comenzar"),
-        "lifeTest": MessageLookupByLibrary.simpleMessage("Prueba de vida"),
-        "sec": MessageLookupByLibrary.simpleMessage("seg"),
-        "smile": MessageLookupByLibrary.simpleMessage("Sonríe"),
-        "steps1": MessageLookupByLibrary.simpleMessage(
-            "- Por favor alinea tu cara en el centro del círculo."),
-        "steps2_1":
-            MessageLookupByLibrary.simpleMessage("- Busca un lugar con"),
-        "steps2_2": MessageLookupByLibrary.simpleMessage("buena iluminación."),
-        "steps3": MessageLookupByLibrary.simpleMessage(
-            "- Sin casco, gorra, gafas, tapabocas, etc."),
-        "steps4": MessageLookupByLibrary.simpleMessage(
-            "- No se permite la captura de objetos."),
-        "takeSelfie1": MessageLookupByLibrary.simpleMessage("Toma una"),
-        "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
-        "takeSelfie3": MessageLookupByLibrary.simpleMessage("de tu rostro"),
-        "turnYourHeadLeft": MessageLookupByLibrary.simpleMessage(
-            "Gira la cabeza hacia la izquierda"),
-        "turnYourHeadRight": MessageLookupByLibrary.simpleMessage(
-            "Gira la cabeza hacia la derecha")
-      };
+    "blink": MessageLookupByLibrary.simpleMessage("Pestañea"),
+    "buttonStart": MessageLookupByLibrary.simpleMessage("Comenzar"),
+    "lifeTest": MessageLookupByLibrary.simpleMessage("Prueba de vida"),
+    "sec": MessageLookupByLibrary.simpleMessage("seg"),
+    "smile": MessageLookupByLibrary.simpleMessage("Sonríe"),
+    "steps1": MessageLookupByLibrary.simpleMessage(
+      "- Por favor alinea tu cara en el centro del círculo.",
+    ),
+    "steps2_1": MessageLookupByLibrary.simpleMessage("- Busca un lugar con"),
+    "steps2_2": MessageLookupByLibrary.simpleMessage("buena iluminación."),
+    "steps3": MessageLookupByLibrary.simpleMessage(
+      "- Sin casco, gorra, gafas, tapabocas, etc.",
+    ),
+    "steps4": MessageLookupByLibrary.simpleMessage(
+      "- No se permite la captura de objetos.",
+    ),
+    "takeSelfie1": MessageLookupByLibrary.simpleMessage("Toma una"),
+    "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
+    "takeSelfie3": MessageLookupByLibrary.simpleMessage("de tu rostro"),
+    "turnYourHeadLeft": MessageLookupByLibrary.simpleMessage(
+      "Gira la cabeza hacia la izquierda",
+    ),
+    "turnYourHeadRight": MessageLookupByLibrary.simpleMessage(
+      "Gira la cabeza hacia la derecha",
+    ),
+  };
 }

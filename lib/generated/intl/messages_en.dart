@@ -22,25 +22,30 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "blink": MessageLookupByLibrary.simpleMessage("Blink"),
-        "buttonStart": MessageLookupByLibrary.simpleMessage("Begin"),
-        "lifeTest": MessageLookupByLibrary.simpleMessage("Life test"),
-        "sec": MessageLookupByLibrary.simpleMessage("sec"),
-        "smile": MessageLookupByLibrary.simpleMessage("Smile"),
-        "steps1": MessageLookupByLibrary.simpleMessage(
-            "- Please align your face in the center of the circle."),
-        "steps2_1": MessageLookupByLibrary.simpleMessage("- Find a place with"),
-        "steps2_2": MessageLookupByLibrary.simpleMessage("good lighting."),
-        "steps3": MessageLookupByLibrary.simpleMessage(
-            "- Without helmet, cap, glasses, face masks, etc."),
-        "steps4": MessageLookupByLibrary.simpleMessage(
-            "- Capturing of objects is not allowed."),
-        "takeSelfie1": MessageLookupByLibrary.simpleMessage("Take a"),
-        "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
-        "takeSelfie3": MessageLookupByLibrary.simpleMessage("of your face"),
-        "turnYourHeadLeft":
-            MessageLookupByLibrary.simpleMessage("Turn Your Head Left"),
-        "turnYourHeadRight":
-            MessageLookupByLibrary.simpleMessage("Turn Your Head Right")
-      };
+    "blink": MessageLookupByLibrary.simpleMessage("Blink"),
+    "buttonStart": MessageLookupByLibrary.simpleMessage("Begin"),
+    "lifeTest": MessageLookupByLibrary.simpleMessage("Life test"),
+    "sec": MessageLookupByLibrary.simpleMessage("sec"),
+    "smile": MessageLookupByLibrary.simpleMessage("Smile"),
+    "steps1": MessageLookupByLibrary.simpleMessage(
+      "- Please align your face in the center of the circle.",
+    ),
+    "steps2_1": MessageLookupByLibrary.simpleMessage("- Find a place with"),
+    "steps2_2": MessageLookupByLibrary.simpleMessage("good lighting."),
+    "steps3": MessageLookupByLibrary.simpleMessage(
+      "- Without helmet, cap, glasses, face masks, etc.",
+    ),
+    "steps4": MessageLookupByLibrary.simpleMessage(
+      "- Capturing of objects is not allowed.",
+    ),
+    "takeSelfie1": MessageLookupByLibrary.simpleMessage("Take a"),
+    "takeSelfie2": MessageLookupByLibrary.simpleMessage("selfie"),
+    "takeSelfie3": MessageLookupByLibrary.simpleMessage("of your face"),
+    "turnYourHeadLeft": MessageLookupByLibrary.simpleMessage(
+      "Turn Your Head Left",
+    ),
+    "turnYourHeadRight": MessageLookupByLibrary.simpleMessage(
+      "Turn Your Head Right",
+    ),
+  };
 }

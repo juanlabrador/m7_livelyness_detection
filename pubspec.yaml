@@ -6,21 +6,21 @@ repository: https://github.com/Meet-7-dating/m7_livelyness_detection/
 issue_tracker: https://github.com/Meet-7-dating/m7_livelyness_detection/issues
 
 environment:
-  sdk: ^3.5.0
-  flutter: ^3.24.0
+  sdk: ^3.9.0
+  flutter: ^3.35.3
 
 dependencies:
-  animate_do: ^3.3.7
+  animate_do: ^4.2.0
   auto_size_text: ^3.0.0
-  camera: ^0.11.1
-  camerawesome: ^2.1.0
+  camera: ^0.11.2
+  camerawesome: ^2.5.0
   collection:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
-  google_mlkit_face_detection: ^0.12.0
-  image: ^4.5.2
-  lottie: ^3.3.1
+  google_mlkit_face_detection: ^0.13.1
+  image: ^4.5.4
+  lottie: ^3.3.2
   plugin_platform_interface: ^2.1.8
   rxdart: ^0.28.0
   circular_progress_stack:
@@ -31,8 +31,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  intl_utils: ^2.8.7
+  flutter_lints: ^6.0.0
+  intl_utils: ^2.8.12
 
 flutter:
   plugin:
