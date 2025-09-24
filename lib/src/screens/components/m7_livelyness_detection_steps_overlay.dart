@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/utils/face_match_theme.dart';
 
 class M7LivelynessDetectionStepOverlay extends StatefulWidget {
   final List<M7LivelynessStepItem> steps;
   final VoidCallback onCompleted;
+
   const M7LivelynessDetectionStepOverlay({
     super.key,
     required this.steps,
@@ -44,8 +46,8 @@ class M7LivelynessDetectionStepOverlayState
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
-      width: double.infinity,
+      height: double.maxFinite,
+      width: double.maxFinite,
       color: Colors.transparent,
       child: Stack(
         fit: StackFit.expand,
@@ -83,8 +85,10 @@ class M7LivelynessDetectionStepOverlayState
       await Future.delayed(
         const Duration(seconds: 2),
       );
-      _hideLoader();
-      setState(() => _currentIndex++);
+      if (mounted) {
+        _hideLoader();
+        setState(() => _currentIndex++);
+      }
     } else {
       widget.onCompleted();
     }
@@ -99,109 +103,125 @@ class M7LivelynessDetectionStepOverlayState
   //? =========================================================
   void _showLoader() => setState(
         () => _isLoading = true,
-  );
+      );
 
   void _hideLoader() => setState(
         () => _isLoading = false,
-  );
+      );
 
   //* MARK: - Private Methods for UI Components
   //? =========================================================
   Widget _buildBody() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: 5,
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                flex: _currentIndex + 1,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    color: Color(0xFF822ad2),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: widget.steps.length - (_currentIndex + 1),
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        Flexible(
-          flex: 2,
-          child: AbsorbPointer(
-            absorbing: true,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: widget.steps.length,
-              itemBuilder: (context, index) {
-                return _buildAnimatedWidget(
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(horizontal: 40),
-                    padding: const EdgeInsets.all(10),
-                    child: AutoSizeText(
-                      widget.steps[index].title,
-                      maxLines: 3,
-                      textAlign: TextAlign.center,
-                      maxFontSize: 26,
-                      minFontSize: 22,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat',
+    return AbsorbPointer(
+      absorbing: true,
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: widget.steps.length,
+        itemBuilder: (context, index) {
+          return Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                if (widget.steps[index].step == M7LivelynessStep.blink) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.blink,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
                       ),
                     ),
+                  )
+                ],
+                if (widget.steps[index].step == M7LivelynessStep.smile) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.smile,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
+                    ),
+                  )
+                ],
+                if (widget.steps[index].step == M7LivelynessStep.turnRight) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.turnRight,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
+                    ),
+                  )
+                ],
+                if (widget.steps[index].step == M7LivelynessStep.turnLeft) ...[
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        context.isDarkMode ? Colors.white : Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: Lottie.asset(
+                        M7AssetConstants.lottie.turnLeft,
+                        package: M7AssetConstants.packageName,
+                        animate: true,
+                        repeat: true,
+                      ),
+                    ),
+                  )
+                ],
+                AutoSizeText(
+                  widget.steps[index].step == M7LivelynessStep.smile
+                      ? langLivelyness.smile
+                      : widget.steps[index].step == M7LivelynessStep.blink
+                          ? langLivelyness.blink
+                          : widget.steps[index].step ==
+                                  M7LivelynessStep.turnLeft
+                              ? langLivelyness.turnYourHeadLeft
+                              : widget.steps[index].step ==
+                                      M7LivelynessStep.turnRight
+                                  ? langLivelyness.turnYourHeadRight
+                                  : '',
+                  maxLines: 3,
+                  textAlign: TextAlign.center,
+                  maxFontSize: 22,
+                  minFontSize: 20,
+                  style: TextStyle(
+                    color: context.primaryText,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat',
                   ),
-                  isExiting: index != _currentIndex,
-                );
-              },
+                ),
+              ],
             ),
-          ),
-        ),
-        const Spacer(
-          flex: 14,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAnimatedWidget(
-      Widget child, {
-        required bool isExiting,
-      }) {
-    return isExiting
-        ? ZoomOut(
-      animate: true,
-      child: FadeOutLeft(
-        animate: true,
-        delay: const Duration(milliseconds: 200),
-        child: child,
-      ),
-    )
-        : ZoomIn(
-      animate: true,
-      delay: const Duration(milliseconds: 500),
-      child: FadeInRight(
-        animate: true,
-        delay: const Duration(milliseconds: 700),
-        child: child,
+          );
+        },
       ),
     );
   }

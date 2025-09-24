@@ -4,7 +4,7 @@ import 'package:m7_livelyness_detection/index.dart';
 class OriginalFaceDetectorPainter extends CustomPainter {
   final FaceDetectionModel model;
   final CanvasTransformation? canvasTransformation;
-  final Preview? preview;
+  final AnalysisPreview? preview;
 
   OriginalFaceDetectorPainter({
     required this.model,

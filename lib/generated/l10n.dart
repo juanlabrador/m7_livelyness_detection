@@ -12,58 +12,176 @@ import 'intl/messages_all.dart';
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
 // ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
-class S {
-  S();
+class AppLocaleLivelyness {
+  AppLocaleLivelyness();
 
-  static S? _current;
+  static AppLocaleLivelyness? _current;
 
-  static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+  static AppLocaleLivelyness get current {
+    assert(
+      _current != null,
+      'No instance of AppLocaleLivelyness was loaded. Try to initialize the AppLocaleLivelyness delegate before accessing AppLocaleLivelyness.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
-  static Future<S> load(Locale locale) {
+  static Future<AppLocaleLivelyness> load(Locale locale) {
     final name = (locale.countryCode?.isEmpty ?? false)
         ? locale.languageCode
         : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = S();
-      S._current = instance;
+      final instance = AppLocaleLivelyness();
+      AppLocaleLivelyness._current = instance;
 
       return instance;
     });
   }
 
-  static S of(BuildContext context) {
-    final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+  static AppLocaleLivelyness of(BuildContext context) {
+    final instance = AppLocaleLivelyness.maybeOf(context);
+    assert(
+      instance != null,
+      'No instance of AppLocaleLivelyness present in the widget tree. Did you add AppLocaleLivelyness.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
-  static S? maybeOf(BuildContext context) {
-    return Localizations.of<S>(context, S);
+  static AppLocaleLivelyness? maybeOf(BuildContext context) {
+    return Localizations.of<AppLocaleLivelyness>(context, AppLocaleLivelyness);
+  }
+
+  /// `Smile`
+  String get smile {
+    return Intl.message('Smile', name: 'smile', desc: '', args: []);
+  }
+
+  /// `Blink`
+  String get blink {
+    return Intl.message('Blink', name: 'blink', desc: '', args: []);
+  }
+
+  /// `Turn Your Head Left`
+  String get turnYourHeadLeft {
+    return Intl.message(
+      'Turn Your Head Left',
+      name: 'turnYourHeadLeft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn Your Head Right`
+  String get turnYourHeadRight {
+    return Intl.message(
+      'Turn Your Head Right',
+      name: 'turnYourHeadRight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take a`
+  String get takeSelfie1 {
+    return Intl.message('Take a', name: 'takeSelfie1', desc: '', args: []);
+  }
+
+  /// `selfie`
+  String get takeSelfie2 {
+    return Intl.message('selfie', name: 'takeSelfie2', desc: '', args: []);
+  }
+
+  /// `of your face`
+  String get takeSelfie3 {
+    return Intl.message(
+      'of your face',
+      name: 'takeSelfie3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- Please align your face in the center of the circle.`
+  String get steps1 {
+    return Intl.message(
+      '- Please align your face in the center of the circle.',
+      name: 'steps1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- Find a place with`
+  String get steps2_1 {
+    return Intl.message(
+      '- Find a place with',
+      name: 'steps2_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `good lighting.`
+  String get steps2_2 {
+    return Intl.message('good lighting.', name: 'steps2_2', desc: '', args: []);
+  }
+
+  /// `- Without helmet, cap, glasses, face masks, etc.`
+  String get steps3 {
+    return Intl.message(
+      '- Without helmet, cap, glasses, face masks, etc.',
+      name: 'steps3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- Capturing of objects is not allowed.`
+  String get steps4 {
+    return Intl.message(
+      '- Capturing of objects is not allowed.',
+      name: 'steps4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Life test`
+  String get lifeTest {
+    return Intl.message('Life test', name: 'lifeTest', desc: '', args: []);
+  }
+
+  /// `Begin`
+  String get buttonStart {
+    return Intl.message('Begin', name: 'buttonStart', desc: '', args: []);
+  }
+
+  /// `sec`
+  String get sec {
+    return Intl.message('sec', name: 'sec', desc: '', args: []);
   }
 }
 
-class AppLocalizationDelegate extends LocalizationsDelegate<S> {
+class AppLocalizationDelegate
+    extends LocalizationsDelegate<AppLocaleLivelyness> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'pt'),
     ];
   }
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
   @override
-  Future<S> load(Locale locale) => S.load(locale);
+  Future<AppLocaleLivelyness> load(Locale locale) =>
+      AppLocaleLivelyness.load(locale);
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

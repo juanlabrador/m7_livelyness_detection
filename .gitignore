@@ -31,3 +31,6 @@ build/
 ios/Pods/**
 ios/Podfile.lock
 ios/.symlinks/**
+
+# FVM Version Cache
+.fvm/

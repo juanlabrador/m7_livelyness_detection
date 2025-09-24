@@ -3,7 +3,7 @@ import 'package:m7_livelyness_detection_example/index.dart';
 
 
 
-LangLivelyness lang = LangLivelyness();
+LangLivelyness langExample = LangLivelyness();
 void main() {
   runApp(const MyApp());
 }

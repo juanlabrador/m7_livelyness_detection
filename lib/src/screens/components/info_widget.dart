@@ -1,12 +1,16 @@
+import 'package:flutter/services.dart';
 import 'package:m7_livelyness_detection/index.dart';
+import 'package:m7_livelyness_detection/src/utils/face_match_theme.dart';
 
 class M7LivelynessInfoWidget extends StatefulWidget {
   final VoidCallback onStartTap;
   final M7DetectionConfig? config;
+  final VoidCallback onBack;
 
   const M7LivelynessInfoWidget({
     required this.config,
     required this.onStartTap,
+    required this.onBack,
     super.key,
   });
 
@@ -22,106 +26,141 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.maxFinite,
-      width: double.maxFinite,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: widget.onBack,
+        ),
+        title: Text(
+          langLivelyness.lifeTest,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Montserrat',
+            fontSize: 19,
+          ),
+        ),
       ),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 70),
-            Text(
-              widget.config?.infoTitle ?? '',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Montserrat',
-                fontSize: 22,
-              ),
-            ),
-            const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                widget.config?.infoDescription ?? '',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.blueGrey,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Montserrat',
-                  fontSize: 18,
-                  height: 1.5,
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: langLivelyness.takeSelfie1,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 16)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.takeSelfie2,
+                          style: const TextStyle(
+                              color: Color(0xff822ad2),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.takeSelfie3,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                    ])),
               ),
             ),
-            Center(
-              child: Container(
-                width: 150,
-                color: Colors.transparent,
-                child: Lottie.asset(
-                  M7AssetConstants.lottie.livelynessStart,
-                  package: M7AssetConstants.packageName,
-                  animate: true,
-                  repeat: true,
-                  reverse: false,
-                  fit: BoxFit.contain,
-                ),
-              ),
+            const SizedBox(height: 30),
+            Image.asset(
+              M7AssetConstants.images.faceExample,
+              package: M7AssetConstants.packageName,
+              width: 200,
+              height: 200,
             ),
+            const SizedBox(height: 30),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 3,
-                      spreadRadius: 2,
-                      color: Colors.black12,
-                    ),
-                  ],
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps1,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      child: Center(
-                        child: Container(
-                          child: _buildPointWidget(
-                            index: 1,
-                            title: widget.config?.infoStep1Title ?? '',
-                            subTitle: widget.config?.infoStep1Description ?? '',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      child: Center(
-                        child: _buildPointWidget(
-                          index: 2,
-                          title: widget.config?.infoStep2Title ?? '',
-                          subTitle: widget.config?.infoStep2Description ?? '',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: langLivelyness.steps2_1,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontSize: 16)),
+                      const TextSpan(text: ' '),
+                      TextSpan(
+                          text: langLivelyness.steps2_2,
+                          style: TextStyle(
+                              color: context.primaryText,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Montserrat',
+                              fontSize: 18)),
+                    ])),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps3,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Text(
+                  langLivelyness.steps4,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
@@ -141,13 +180,13 @@ class _M7LivelynessInfoWidgetState extends State<M7LivelynessInfoWidget> {
                   ),
                 ),
                 child: Text(
-                  widget.config?.buttonStart ?? '',
+                  langLivelyness.buttonStart,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Montserrat',
-                    fontSize: 24,
+                    fontSize: 20,
                   ),
                 ),
               ),

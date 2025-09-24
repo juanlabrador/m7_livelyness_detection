@@ -59,6 +59,7 @@ class _TestScreenState extends State<TestScreen> {
 
   Widget _buildInfoScreen() {
     return M7LivelynessInfoWidget(
+      onBack: () {},
       config: M7DetectionConfig(steps: []),
       onStartTap: () {},
     );
